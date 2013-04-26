@@ -44,9 +44,9 @@ class AutoprefixerCommand(sublime_plugin.TextCommand):
 		except OSError:
 			sublime.error_message('Couldn\'t find Node.js. Make sure it\'s in your $PATH. See installation guide: https://github.com/sindresorhus/sublime-autoprefixer')
 			return
-		stdout, stderr = p.communicate(input=data.encode())
-		stdout = stdout.decode()
-		stderr = stderr.decode()
+		stdout, stderr = p.communicate(input=data.encode('utf-8'))
+		stdout = stdout.decode('utf-8')
+		stderr = stderr.decode('utf-8')
 		if stderr:
 			sublime.error_message('Autoprefixer error: ' + stderr)
 		return stdout
