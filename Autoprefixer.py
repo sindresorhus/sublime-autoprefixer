@@ -6,18 +6,13 @@ from subprocess import Popen, PIPE
 from os.path import dirname, realpath, join
 
 
-is_windows = platform.system() == 'Windows'
-
-# manually add the /usr/local/bin path since it's not read from .bashrc for GUI apps on OS X
-os.environ['PATH'] += os.pathsep + '/usr/local/bin'
-
-
 # monkeypatch `Region` to be iterable
 sublime.Region.totuple = lambda self: (self.a, self.b)
 sublime.Region.__iter__ = lambda self: self.totuple().__iter__()
 
-
 BIN_PATH = join(sublime.packages_path(), dirname(realpath(__file__)), 'autoprefixer', 'bin', 'autoprefixer')
+IS_WINDOWS = platform.system() == 'Windows'
+IS_OSX = platform.system() == 'Darwin'
 
 
 class AutoprefixerCommand(sublime_plugin.TextCommand):
@@ -41,9 +36,13 @@ class AutoprefixerCommand(sublime_plugin.TextCommand):
 				self.view.replace(edit, region, prefixed)
 
 	def prefix(self, data):
+		env = os.environ.copy()
+		if IS_OSX:
+			# GUI apps in OS X doesn't contain .bashrc set paths
+			env['PATH'] += ':/usr/local/bin'
 		try:
 			p = Popen(['node', BIN_PATH, '-b', self.browsers],
-				stdout=PIPE, stdin=PIPE, stderr=PIPE, shell=is_windows)
+				stdout=PIPE, stdin=PIPE, stderr=PIPE, env=env, shell=IS_WINDOWS)
 		except OSError:
 			sublime.error_message('Couldn\'t find Node.js. Make sure it\'s in your $PATH. See installation guide: https://github.com/sindresorhus/sublime-autoprefixer')
 			return
