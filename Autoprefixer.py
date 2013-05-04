@@ -36,9 +36,10 @@ class AutoprefixerCommand(sublime_plugin.TextCommand):
 				self.view.replace(edit, region, prefixed)
 
 	def prefix(self, data):
-		env = os.environ.copy()
+		env = None
 		if IS_OSX:
 			# GUI apps in OS X doesn't contain .bashrc set paths
+			env = os.environ.copy()
 			env['PATH'] += ':/usr/local/bin'
 		try:
 			p = Popen(['node', BIN_PATH, '-b', self.browsers],
