@@ -1,10 +1,12 @@
 import sublime
 import sublime_plugin
 import os
-
+import platform
 from subprocess import Popen, PIPE
 from os.path import dirname, realpath, join
 
+
+is_windows = platform.system() == 'Windows'
 
 # manually add the /usr/local/bin path since it's not read from .bashrc for GUI apps on OS X
 os.environ['PATH'] += os.pathsep + '/usr/local/bin'
@@ -40,7 +42,8 @@ class AutoprefixerCommand(sublime_plugin.TextCommand):
 
 	def prefix(self, data):
 		try:
-			p = Popen(['node', BIN_PATH, '-b', self.browsers], stdout=PIPE, stdin=PIPE, stderr=PIPE)
+			p = Popen(['node', BIN_PATH, '-b', self.browsers],
+				stdout=PIPE, stdin=PIPE, stderr=PIPE, shell=is_windows)
 		except OSError:
 			sublime.error_message('Couldn\'t find Node.js. Make sure it\'s in your $PATH. See installation guide: https://github.com/sindresorhus/sublime-autoprefixer')
 			return
