@@ -53,7 +53,8 @@ class AutoprefixerCommand(sublime_plugin.TextCommand):
 		stderr = stderr.decode('utf-8')
 		if stderr:
 			sublime.error_message('Autoprefixer error: ' + stderr)
-		return stdout
+		else:
+			return stdout
 
 	def has_selection(self):
 		for sel in self.view.sel():
