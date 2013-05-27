@@ -44,7 +44,7 @@ class AutoprefixerCommand(sublime_plugin.TextCommand):
 		try:
 			p = Popen(['node', BIN_PATH, '-b', self.browsers],
 				stdout=PIPE, stdin=PIPE, stderr=PIPE,
-				env=env, shell=IS_WINDOWS, universal_newlines=True)
+				env=env, shell=IS_WINDOWS)
 		except OSError:
 			sublime.error_message('Couldn\'t find Node.js. Make sure it\'s in your $PATH. See installation guide: https://github.com/sindresorhus/sublime-autoprefixer')
 			return
