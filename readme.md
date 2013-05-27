@@ -15,9 +15,7 @@ Make sure it's in your $PATH by running `node -v` in your command-line.
 
 ### Sublime Text 2
 
-<del>Install `Autoprefixer` with [Package Control](http://wbond.net/sublime_packages/package_control) and restart Sublime.</del>
-
-*Not yet on Package Control. [Download](https://github.com/sindresorhus/sublime-autoprefixer/archive/master.zip) manually for now.*
+Install `Autoprefixer` with [Package Control](http://wbond.net/sublime_packages/package_control) and restart Sublime.
 
 
 ### Sublime Text 3
