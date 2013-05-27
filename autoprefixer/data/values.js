@@ -27,7 +27,8 @@ module.exports = {
             "chrome 24",
             "chrome 25",
             "safari 6",
-            "ios 6"
+            "ios 6",
+            "bb 10"
         ]
     },
     flex: {
@@ -83,6 +84,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -96,8 +98,27 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
-        ]
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
+        ],
+        replace: function (string, prefix, rules) {
+            if (prefix === '-webkit-') {
+                rules.add('display', '-webkit-box');
+                return '-webkit-' + string;
+            } else if (prefix === '-moz-') {
+                return prefix + 'box';
+            } else if (prefix === '-ms-') {
+                return prefix + 'flexbox';
+            }
+        }
     },
     "inline-flex": {
         props: [
@@ -152,6 +173,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -165,7 +187,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ]
     },
     "linear-gradient": {
@@ -224,14 +255,43 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ],
         replace: function (string, prefix) {
             var regexp;
+            regexp = /to\s+(top|bottom)?\s*(left|right)?/ig;
+            string = string.replace(regexp, function (_, ver, hor) {
+                var direct;
+                direct = [];
+                if (ver === 'top') {
+                    direct.push('bottom');
+                }
+                if (ver === 'bottom') {
+                    direct.push('top');
+                }
+                if (hor === 'right') {
+                    direct.push('left');
+                }
+                if (hor === 'left') {
+                    direct.push('right');
+                }
+                return direct.join(' ');
+            });
+            regexp = /(repeating-)?(linear|radial)-gradient/gi;
+            string = string.replace(regexp, prefix + '$&');
             if (prefix !== '-webkit-') {
-                return;
+                return string;
             }
-            regexp = /((repeating-)?(linear|radial)-gradient\()\s*(-?\d+deg)?/g;
+            regexp = /((repeating-)?(linear|radial)-gradient\()\s*(-?\d+deg)?/ig;
             return string.replace(regexp, function (_0, gradient, _1, _2, deg) {
                 if (deg) {
                     deg = parseInt(deg);
@@ -239,9 +299,9 @@ module.exports = {
                     if (deg > 360) {
                         deg -= 360;
                     }
-                    return prefix + gradient + deg + 'deg';
+                    return gradient + deg + 'deg';
                 } else {
-                    return prefix + gradient;
+                    return gradient;
                 }
             });
         }
@@ -302,14 +362,43 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ],
         replace: function (string, prefix) {
             var regexp;
+            regexp = /to\s+(top|bottom)?\s*(left|right)?/ig;
+            string = string.replace(regexp, function (_, ver, hor) {
+                var direct;
+                direct = [];
+                if (ver === 'top') {
+                    direct.push('bottom');
+                }
+                if (ver === 'bottom') {
+                    direct.push('top');
+                }
+                if (hor === 'right') {
+                    direct.push('left');
+                }
+                if (hor === 'left') {
+                    direct.push('right');
+                }
+                return direct.join(' ');
+            });
+            regexp = /(repeating-)?(linear|radial)-gradient/gi;
+            string = string.replace(regexp, prefix + '$&');
             if (prefix !== '-webkit-') {
-                return;
+                return string;
             }
-            regexp = /((repeating-)?(linear|radial)-gradient\()\s*(-?\d+deg)?/g;
+            regexp = /((repeating-)?(linear|radial)-gradient\()\s*(-?\d+deg)?/ig;
             return string.replace(regexp, function (_0, gradient, _1, _2, deg) {
                 if (deg) {
                     deg = parseInt(deg);
@@ -317,9 +406,9 @@ module.exports = {
                     if (deg > 360) {
                         deg -= 360;
                     }
-                    return prefix + gradient + deg + 'deg';
+                    return gradient + deg + 'deg';
                 } else {
-                    return prefix + gradient;
+                    return gradient;
                 }
             });
         }
@@ -380,14 +469,43 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ],
         replace: function (string, prefix) {
             var regexp;
+            regexp = /to\s+(top|bottom)?\s*(left|right)?/ig;
+            string = string.replace(regexp, function (_, ver, hor) {
+                var direct;
+                direct = [];
+                if (ver === 'top') {
+                    direct.push('bottom');
+                }
+                if (ver === 'bottom') {
+                    direct.push('top');
+                }
+                if (hor === 'right') {
+                    direct.push('left');
+                }
+                if (hor === 'left') {
+                    direct.push('right');
+                }
+                return direct.join(' ');
+            });
+            regexp = /(repeating-)?(linear|radial)-gradient/gi;
+            string = string.replace(regexp, prefix + '$&');
             if (prefix !== '-webkit-') {
-                return;
+                return string;
             }
-            regexp = /((repeating-)?(linear|radial)-gradient\()\s*(-?\d+deg)?/g;
+            regexp = /((repeating-)?(linear|radial)-gradient\()\s*(-?\d+deg)?/ig;
             return string.replace(regexp, function (_0, gradient, _1, _2, deg) {
                 if (deg) {
                     deg = parseInt(deg);
@@ -395,9 +513,9 @@ module.exports = {
                     if (deg > 360) {
                         deg -= 360;
                     }
-                    return prefix + gradient + deg + 'deg';
+                    return gradient + deg + 'deg';
                 } else {
-                    return prefix + gradient;
+                    return gradient;
                 }
             });
         }
@@ -458,14 +576,43 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ],
         replace: function (string, prefix) {
             var regexp;
+            regexp = /to\s+(top|bottom)?\s*(left|right)?/ig;
+            string = string.replace(regexp, function (_, ver, hor) {
+                var direct;
+                direct = [];
+                if (ver === 'top') {
+                    direct.push('bottom');
+                }
+                if (ver === 'bottom') {
+                    direct.push('top');
+                }
+                if (hor === 'right') {
+                    direct.push('left');
+                }
+                if (hor === 'left') {
+                    direct.push('right');
+                }
+                return direct.join(' ');
+            });
+            regexp = /(repeating-)?(linear|radial)-gradient/gi;
+            string = string.replace(regexp, prefix + '$&');
             if (prefix !== '-webkit-') {
-                return;
+                return string;
             }
-            regexp = /((repeating-)?(linear|radial)-gradient\()\s*(-?\d+deg)?/g;
+            regexp = /((repeating-)?(linear|radial)-gradient\()\s*(-?\d+deg)?/ig;
             return string.replace(regexp, function (_0, gradient, _1, _2, deg) {
                 if (deg) {
                     deg = parseInt(deg);
@@ -473,9 +620,9 @@ module.exports = {
                     if (deg > 360) {
                         deg -= 360;
                     }
-                    return prefix + gradient + deg + 'deg';
+                    return gradient + deg + 'deg';
                 } else {
-                    return prefix + gradient;
+                    return gradient;
                 }
             });
         }

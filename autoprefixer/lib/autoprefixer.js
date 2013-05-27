@@ -55,6 +55,43 @@ var error = function (message) {
     throw err;
 };
 
+// Class to edit rules array inside forEach.
+var Rules = function(rules) {
+    this.rules = rules;
+};
+Rules.prototype = {
+    // Execute `callback` on every rule.
+    forEach: function (callback) {
+        for ( this.num = 0; this.num < this.rules.length; this.num += 1 ) {
+            if ( this.rules[this.num].property ) {
+                callback(this.rules[this.num]);
+            }
+        }
+    },
+
+    // Check that rules contain rule with `prop` and `values`.
+    contain: function (prop, value) {
+        return this.rules.some(function (rule) {
+            return rule.property === prop && rule.value === value;
+        });
+    },
+
+    // Add new rule with `prop` and `value`.
+    add: function (prop, value) {
+        if ( this.contain(prop, value) ) {
+            return;
+        }
+
+        this.rules.splice(this.num, 0, { property: prop, value: value });
+        this.num += 1;
+    },
+
+    // Remove current rule.
+    removeCurrent: function () {
+        this.rules.splice(this.num, 1);
+    }
+};
+
 // Parse CSS and add prefixed properties and values by Can I Use database
 // for actual browsers.
 //
@@ -116,8 +153,19 @@ var autoprefixer = {
 
     // Change `style` declarations in parsed CSS, to add prefixes for `props`.
     prefixer: function (props, style) {
+        var all      = props['*'];
+        var prefixes = ['-webkit-', '-moz-', '-ms-', '-o-'];
+
+        var transitions = { };
+        for ( var i in props ) {
+            if ( props[i].transition && props[i].prefixes ) {
+                transitions[i] = props[i];
+            }
+        }
+        var isTransition = /(-(webkit|moz|ms|o)-)?transition(-property)?/;
+
+        // Keyframes
         if ( props['@keyframes'] ) {
-            // Keyframes
             style.rules.forEach(function(rule) {
                 if ( !rule.keyframes ) {
                     return;
@@ -132,7 +180,7 @@ var autoprefixer = {
                         return;
                     }
 
-                    var clone = { name: rule.name };
+                    var clone = { name: rule.name, type: rule.type };
                     clone.vendor = rule.vendor;
                     clone.keyframes = [];
                     rule.keyframes.forEach(function (keyframe) {
@@ -153,48 +201,22 @@ var autoprefixer = {
              });
         }
 
-        var all = props['*'];
-        var transitions = { };
-        for ( var i in props ) {
-            if ( props[i].transition && props[i].prefixes ) {
-                transitions[i] = props[i];
-            }
-        }
-        var isTransition = /(-(webkit|moz|ms|o)-)?transition(-property)?/;
-
-        rework.visit.declarations(style, function (rules, node) {
-            var vendor   = node.vendor;
-            var prefixes = ['-webkit-', '-moz-', '-ms-', '-o-'];
-
-            var contain = function (rules, prop, value) {
-                return rules.some(function (rule) {
-                    return rule.property === prop && rule.value === value;
-                });
-            };
-            var add = function (rules, num, prop, value) {
-                if ( contain(rules, prop, value) ) {
-                    return num;
-                }
-
-                rules.splice(num, 0, { property: prop, value: value });
-                return num + 1;
-            };
-            var num, rule, prop;
+        rework.visit.declarations(style, function (list, node) {
+            var rules = new Rules(list);
 
             // Properties
-            for ( num = 0; num < rules.length; num += 1 ) {
-                rule = rules[num];
-                prop = props[rule.property];
+            rules.forEach(function (rule) {
+                var prop = props[rule.property];
 
                 if ( !prop || !prop.prefixes ) {
-                    continue;
+                    return;
                 }
                 if ( prop.check && !prop.check.call(rule.value, rule) ) {
-                    continue;
+                    return;
                 }
 
                 prop.prefixes.forEach(function (prefix) {
-                    if ( vendor && vendor !== prefix ) {
+                    if ( node.vendor && node.vendor !== prefix ) {
                         return;
                     }
                     var wrong = prefixes.some(function (other) {
@@ -207,17 +229,15 @@ var autoprefixer = {
                         return;
                     }
 
-                    num = add(rules, num, prefix + rule.property, rule.value);
+                    rules.add(prefix + rule.property, rule.value);
                 });
-            }
+            });
 
             // Values
-            for ( num = 0; num < rules.length; num += 1 ) {
-                rule = rules[num];
-
-                var split      = splitPrefix(rule.property);
-                var propVendor = split.prefix || vendor;
-                prop = props[split.name];
+            rules.forEach(function (rule) {
+                var split  = splitPrefix(rule.property);
+                var vendor = split.prefix || node.vendor;
+                var prop   = props[split.name];
 
                 var valuePrefixer = function (values) {
                     var prefixed = { };
@@ -229,22 +249,23 @@ var autoprefixer = {
                         }
 
                         value.prefixes.forEach(function (prefix) {
-                            if ( propVendor && propVendor !== prefix ) {
+                            if ( vendor && vendor !== prefix ) {
                                 return;
                             }
-                            if ( !prefixed[prefix]) {
+                            if ( !prefixed[prefix] ) {
                                 prefixed[prefix] = rule.value;
                             }
                             if ( value.replace ) {
                                 if ( prefixed[prefix].match(value.regexp) ) {
                                     var replaced = value.replace(
-                                        prefixed[prefix], prefix);
+                                        prefixed[prefix], prefix, rules);
                                     if ( replaced ) {
                                         prefixed[prefix] = replaced;
                                         return;
                                     }
                                 }
                             }
+
                             prefixed[prefix] = prefixed[prefix].replace(
                                 value.regexp, '$1' + prefix + name + '$2');
                         });
@@ -252,19 +273,20 @@ var autoprefixer = {
 
 
                     for ( var prefix in prefixed ) {
-                        if ( prefixed[prefix] !== rule.value ) {
-                            if ( propVendor ) {
-                                var exists = contain(rules, rule.property,
-                                                     prefixed[prefix]);
-                                if ( exists ) {
-                                    rules.splice(num, 1);
-                                } else {
-                                    rule.value = prefixed[prefix];
-                                }
+                        if ( prefixed[prefix] === rule.value ) {
+                            continue;
+                        }
+
+                        if ( vendor ) {
+                            var exists = rules.contain(
+                                rule.property, prefixed[prefix]);
+                            if ( exists ) {
+                                rules.removeCurrent();
                             } else {
-                                num = add(rules, num, rule.property,
-                                          prefixed[prefix]);
+                                rule.value = prefixed[prefix];
                             }
+                        } else {
+                            rules.add(rule.property, prefixed[prefix]);
                         }
                     }
                 };
@@ -278,7 +300,7 @@ var autoprefixer = {
                 if ( rule.property.match(isTransition) ) {
                     valuePrefixer(transitions);
                 }
-            }
+            });
         });
     },
 
@@ -291,14 +313,14 @@ var autoprefixer = {
             return !(rule.keyframes && remove.keyframes[rule.vendor]);
         });
 
-        rework.visit.declarations(style, function (rules) {
-            for ( var num = 0; num < rules.length; num += 1 ) {
-                var rule = rules[num];
+        rework.visit.declarations(style, function (list) {
+            var rules = new Rules(list);
 
+            rules.forEach(function (rule) {
                 // Properties
                 if ( remove.props[rule.property] ) {
-                    rules.splice(num, 1);
-                    continue;
+                    rules.removeCurrent();
+                    return;
                 }
 
                 // Values
@@ -312,11 +334,11 @@ var autoprefixer = {
                 }
                 values.forEach(function (value) {
                     if ( rule.value.match(value) ) {
-                        rules.splice(num, 1);
+                        rules.removeCurrent();
                         return false;
                     }
                 });
-            }
+            });
         });
     },
 
@@ -330,21 +352,27 @@ var autoprefixer = {
         var browsers = [];
         requirements.map(function (req) {
 
-          if ( match = req.match(/^last (\d+) versions?$/i) ) {
-              return autoprefixer.browsers(function(browser) {
-                  return browser.versions.slice(0, match[1]);
-              });
+            if ( match = req.match(/^last (\d+) versions?$/i) ) {
+                return autoprefixer.browsers(function(browser) {
+                    if ( browser.minor ) {
+                        return [];
+                    }
+                    return browser.versions.slice(0, match[1]);
+                });
 
-          } else if ( match = req.match(/^> (\d+(\.\d+)?)%$/i) ) {
-              return autoprefixer.browsers(function(browser) {
-                  return browser.versions.filter(function (version, i) {
-                      return browser.popularity[i] > match[1];
-                  });
-              });
+            } else if ( match = req.match(/^> (\d+(\.\d+)?)%$/i) ) {
+                return autoprefixer.browsers(function(browser) {
+                    if ( browser.minor ) {
+                        return [];
+                    }
+                    return browser.versions.filter(function (version, i) {
+                        return browser.popularity[i] > match[1];
+                    });
+                });
 
-          } else {
-              return [autoprefixer.check(req)];
-          }
+            } else {
+                return [autoprefixer.check(req)];
+            }
 
         }).forEach(function (reqBrowsers) {
             browsers = browsers.concat(reqBrowsers);

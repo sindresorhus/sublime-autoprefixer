@@ -40,6 +40,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -52,7 +53,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ]
     },
     "align-content": {
@@ -105,6 +115,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -118,7 +129,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ],
         transition: true
     },
@@ -172,6 +192,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -185,7 +206,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ],
         transition: true
     },
@@ -239,6 +269,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -252,7 +283,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ],
         transition: true
     },
@@ -294,6 +334,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -306,7 +347,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ]
     },
     "animation-delay": {
@@ -347,6 +397,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -359,7 +410,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ]
     },
     "animation-direction": {
@@ -400,6 +460,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -412,7 +473,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ]
     },
     "animation-duration": {
@@ -453,6 +523,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -465,7 +536,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ]
     },
     "animation-fill-mode": {
@@ -506,6 +586,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -518,7 +599,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ]
     },
     "animation-iteration-count": {
@@ -559,6 +649,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -571,7 +662,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ]
     },
     "animation-name": {
@@ -612,6 +712,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -624,7 +725,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ]
     },
     "animation-play-state": {
@@ -665,6 +775,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -677,7 +788,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ]
     },
     "animation-timing-function": {
@@ -718,6 +838,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -730,7 +851,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ]
     },
     "backface-visibility": {
@@ -775,6 +905,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -795,7 +926,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ],
         transition: true
     },
@@ -809,7 +949,8 @@ module.exports = {
             "safari 4",
             "safari 3.1",
             "safari 3.2",
-            "ios 3.2"
+            "ios 3.2",
+            "android 2.1"
         ],
         transition: true,
         prefixed: {
@@ -826,7 +967,8 @@ module.exports = {
             "safari 4",
             "safari 3.1",
             "safari 3.2",
-            "ios 3.2"
+            "ios 3.2",
+            "android 2.1"
         ],
         transition: true,
         prefixed: {
@@ -843,7 +985,8 @@ module.exports = {
             "safari 4",
             "safari 3.1",
             "safari 3.2",
-            "ios 3.2"
+            "ios 3.2",
+            "android 2.1"
         ],
         transition: true
     },
@@ -857,7 +1000,8 @@ module.exports = {
             "safari 4",
             "safari 3.1",
             "safari 3.2",
-            "ios 3.2"
+            "ios 3.2",
+            "android 2.1"
         ],
         transition: true,
         prefixed: {
@@ -874,7 +1018,8 @@ module.exports = {
             "safari 4",
             "safari 3.1",
             "safari 3.2",
-            "ios 3.2"
+            "ios 3.2",
+            "android 2.1"
         ],
         transition: true,
         prefixed: {
@@ -899,7 +1044,12 @@ module.exports = {
             "ios 4.0",
             "ios 4.1",
             "ios 4.2",
-            "ios 4.3"
+            "ios 4.3",
+            "android 3",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "bb 7"
         ],
         transition: true
     },
@@ -926,6 +1076,7 @@ module.exports = {
             "ff 20",
             "ff 21",
             "ff 22",
+            "ff 23",
             "ff 3.5",
             "ff 3.6",
             "chrome 4",
@@ -942,7 +1093,12 @@ module.exports = {
             "ios 4.0",
             "ios 4.1",
             "ios 4.2",
-            "ios 4.3"
+            "ios 4.3",
+            "android 3",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "bb 7"
         ]
     },
     "break-after": {
@@ -968,6 +1124,7 @@ module.exports = {
             "ff 20",
             "ff 21",
             "ff 22",
+            "ff 23",
             "ff 3.5",
             "ff 3.6",
             "chrome 4",
@@ -995,6 +1152,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -1008,7 +1166,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ],
         transition: true
     },
@@ -1035,6 +1202,7 @@ module.exports = {
             "ff 20",
             "ff 21",
             "ff 22",
+            "ff 23",
             "ff 3.5",
             "ff 3.6",
             "chrome 4",
@@ -1062,6 +1230,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -1075,7 +1244,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ],
         transition: true
     },
@@ -1102,6 +1280,7 @@ module.exports = {
             "ff 20",
             "ff 21",
             "ff 22",
+            "ff 23",
             "ff 3.5",
             "ff 3.6",
             "chrome 4",
@@ -1129,6 +1308,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -1142,7 +1322,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ],
         transition: true
     },
@@ -1169,6 +1358,7 @@ module.exports = {
             "ff 20",
             "ff 21",
             "ff 22",
+            "ff 23",
             "ff 3.5",
             "ff 3.6",
             "chrome 4",
@@ -1196,6 +1386,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -1209,7 +1400,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ],
         transition: true
     },
@@ -1236,6 +1436,7 @@ module.exports = {
             "ff 20",
             "ff 21",
             "ff 22",
+            "ff 23",
             "ff 3.5",
             "ff 3.6",
             "chrome 4",
@@ -1263,6 +1464,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -1276,7 +1478,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ],
         transition: true
     },
@@ -1303,6 +1514,7 @@ module.exports = {
             "ff 20",
             "ff 21",
             "ff 22",
+            "ff 23",
             "ff 3.5",
             "ff 3.6",
             "chrome 4",
@@ -1330,6 +1542,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -1343,7 +1556,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ],
         transition: true
     },
@@ -1370,6 +1592,7 @@ module.exports = {
             "ff 20",
             "ff 21",
             "ff 22",
+            "ff 23",
             "ff 3.5",
             "ff 3.6",
             "chrome 4",
@@ -1397,6 +1620,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -1410,7 +1634,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ],
         transition: true
     },
@@ -1437,6 +1670,7 @@ module.exports = {
             "ff 20",
             "ff 21",
             "ff 22",
+            "ff 23",
             "ff 3.5",
             "ff 3.6",
             "chrome 4",
@@ -1464,6 +1698,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -1477,7 +1712,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ],
         transition: true
     },
@@ -1504,6 +1748,7 @@ module.exports = {
             "ff 20",
             "ff 21",
             "ff 22",
+            "ff 23",
             "ff 3.5",
             "ff 3.6",
             "chrome 4",
@@ -1531,6 +1776,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -1544,7 +1790,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ],
         transition: true
     },
@@ -1571,6 +1826,7 @@ module.exports = {
             "ff 20",
             "ff 21",
             "ff 22",
+            "ff 23",
             "ff 3.5",
             "ff 3.6",
             "chrome 4",
@@ -1598,6 +1854,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -1611,7 +1868,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ],
         transition: true
     },
@@ -1638,6 +1904,7 @@ module.exports = {
             "ff 20",
             "ff 21",
             "ff 22",
+            "ff 23",
             "ff 3.5",
             "ff 3.6",
             "chrome 4",
@@ -1665,6 +1932,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -1678,7 +1946,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ],
         transition: true
     },
@@ -1705,6 +1982,7 @@ module.exports = {
             "ff 20",
             "ff 21",
             "ff 22",
+            "ff 23",
             "ff 3.5",
             "ff 3.6",
             "chrome 4",
@@ -1732,6 +2010,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -1745,7 +2024,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ],
         transition: true
     },
@@ -1772,6 +2060,7 @@ module.exports = {
             "ff 20",
             "ff 21",
             "ff 22",
+            "ff 23",
             "ff 3.5",
             "ff 3.6",
             "chrome 4",
@@ -1799,6 +2088,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -1812,7 +2102,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ],
         transition: true
     },
@@ -1829,8 +2128,10 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 6",
-            "ios 6"
+            "ios 6",
+            "bb 10"
         ],
         transition: true,
         check: function () {
@@ -1887,6 +2188,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -1900,7 +2202,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ],
         transition: true
     },
@@ -1954,6 +2265,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -1967,7 +2279,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ],
         transition: true
     },
@@ -2021,6 +2342,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -2034,7 +2356,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ],
         transition: true
     },
@@ -2088,6 +2419,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -2101,7 +2433,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ],
         transition: true
     },
@@ -2155,6 +2496,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -2168,7 +2510,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ],
         transition: true
     },
@@ -2222,6 +2573,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -2235,7 +2587,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ],
         transition: true
     },
@@ -2289,6 +2650,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -2302,7 +2664,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ],
         transition: true
     },
@@ -2356,6 +2727,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -2369,7 +2741,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ],
         transition: true
     },
@@ -2423,6 +2804,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -2436,7 +2818,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ],
         transition: true
     },
@@ -2482,6 +2873,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -2502,7 +2894,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ],
         transition: true
     },
@@ -2548,6 +2949,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -2568,7 +2970,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ],
         transition: true
     },
@@ -2614,6 +3025,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -2634,7 +3046,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ],
         transition: true
     },
@@ -2680,6 +3101,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -2700,7 +3122,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ],
         transition: true
     },
@@ -2746,6 +3177,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -2766,7 +3198,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ],
         transition: true
     },
@@ -2826,7 +3267,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ]
     },
     "transition-delay": {
@@ -2885,7 +3335,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ]
     },
     "transition-duration": {
@@ -2944,7 +3403,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ]
     },
     "transition-property": {
@@ -3003,7 +3471,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ]
     },
     "transition-timing-function": {
@@ -3062,12 +3539,22 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ]
     },
     "user-select": {
         browsers: [
             "ie 10",
+            "ie 11",
             "ff 2",
             "ff 3",
             "ff 4",
@@ -3089,6 +3576,7 @@ module.exports = {
             "ff 20",
             "ff 21",
             "ff 22",
+            "ff 23",
             "ff 3.5",
             "ff 3.6",
             "chrome 6",
@@ -3114,6 +3602,7 @@ module.exports = {
             "chrome 26",
             "chrome 27",
             "chrome 28",
+            "chrome 29",
             "safari 4",
             "safari 5",
             "safari 6",
@@ -3127,7 +3616,16 @@ module.exports = {
             "ios 4.2",
             "ios 4.3",
             "ios 5.0",
-            "ios 5.1"
+            "ios 5.1",
+            "android 3",
+            "android 4",
+            "android 2.1",
+            "android 2.2",
+            "android 2.3",
+            "android 4.1",
+            "android 4.2",
+            "bb 7",
+            "bb 10"
         ]
     }
 };
