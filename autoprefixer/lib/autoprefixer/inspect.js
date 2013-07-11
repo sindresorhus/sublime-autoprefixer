@@ -1,79 +1,89 @@
-/*
- * Copyright 2013 Andrey Sitnik <andrey@sitnik.ru>,
- * sponsored by Evil Martians.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-'use strict';
+(function() {
+  var capitalize, names, prefix;
 
-var autoprefixer = require('../autoprefixer.js');
+  capitalize = function(str) {
+    return str.slice(0, 1).toUpperCase() + str.slice(1);
+  };
 
-var transition;
-var format = function (data) {
-    transition = false;
-    return Object.keys(data).sort().map(function (name) {
-        var prop = data[name];
-        if (prop.transition) {
-            name += '*';
-            transition = true;
-        }
-        return '  ' + name + ': ' + prop.prefixes.map(function (i) {
-            return i.replace(/^-(.*)-$/g, '$1');
-        }).join(', ');
-    }).join("\n");
-};
+  names = {
+    ie: 'IE',
+    ff: 'Firefox',
+    ios: 'iOS'
+  };
 
-// Show, what browser, properties and values will used by autoprefixed
-// with this `req`.
-var inspect = function (reqs) {
-    var browsers = autoprefixer.parse(reqs || []);
-    var values   = autoprefixer.filter(autoprefixer.data.values, browsers);
-    var props    = autoprefixer.filter(autoprefixer.data.props,  browsers);
+  prefix = function(name, transition, prefixes) {
+    var out;
+    out = '  ' + name + (transition ? '*' : '') + ': ';
+    out += prefixes.map(function(i) {
+      return i.replace(/^-(.*)-$/g, '$1');
+    }).join(', ');
+    out += "\n";
+    return out;
+  };
 
-    var name, version, last, selected = [];
-    for (var i = 0; i < browsers.length; i++) {
-        version = browsers[i].split(' ')[1];
-        if ( browsers[i].indexOf(last) == 0 ) {
-            selected[selected.length - 1] += ', ' + version;
-        } else {
-            last = browsers[i].split(' ')[0];
-            if ( last == 'ie' ) {
-                name = 'IE';
-            } else if ( last == 'ff' ) {
-                name = 'Firefox';
-            } else if ( last == 'ios' ) {
-                name = 'iOS';
-            } else {
-                name = last.slice(0, 1).toUpperCase() + last.slice(1);
-            }
-            selected.push(name + ' ' + version);
-        }
+  module.exports = function(prefixes) {
+    var browser, data, list, name, needTransition, out, props, string, transitionProp, useTransition, value, values, version, versions, _i, _j, _len, _len1, _ref, _ref1, _ref2, _ref3, _ref4;
+    if (prefixes.browsers.selected.length === 0) {
+      return "No browsers selected";
     }
-
-    var out  = "Browsers:\n" +
-        selected.map(function (i) { return '  ' + i; }).join("\n") + "\n";
-
-    if ( Object.keys(props).length > 0 ) {
-        out += "\nProperties:\n" + format(props) + "\n";
-        if ( transition ) {
-            out += "* - properties, which can be used in transition\n"
-        }
+    versions = [];
+    _ref = prefixes.browsers.selected;
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      browser = _ref[_i];
+      _ref1 = browser.split(' '), name = _ref1[0], version = _ref1[1];
+      name = names[name] || capitalize(name);
+      if (versions[name]) {
+        versions[name].push(version);
+      } else {
+        versions[name] = [version];
+      }
     }
-    if ( Object.keys(values).length > 0 ) {
-        out += "\nValues:\n" + format(values) + "\n"
+    out = "Browsers:\n";
+    for (browser in versions) {
+      list = versions[browser];
+      out += '  ' + browser + ': ' + list.join(', ') + "\n";
+    }
+    values = '';
+    props = '';
+    useTransition = false;
+    needTransition = (_ref2 = prefixes.add.transition) != null ? _ref2.prefixes : void 0;
+    _ref3 = prefixes.add;
+    for (name in _ref3) {
+      data = _ref3[name];
+      if (data.prefixes) {
+        transitionProp = needTransition && prefixes.data[name].transition;
+        if (transitionProp) {
+          useTransition = true;
+        }
+        props += prefix(name, transitionProp, data.prefixes);
+      }
+      if (!data.values) {
+        continue;
+      }
+      if (prefixes.transitionProps.some(function(i) {
+        return i === name;
+      })) {
+        continue;
+      }
+      _ref4 = data.values;
+      for (_j = 0, _len1 = _ref4.length; _j < _len1; _j++) {
+        value = _ref4[_j];
+        string = prefix(value.name, false, value.prefixes);
+        if (values.indexOf(string) === -1) {
+          values += string;
+        }
+      }
+    }
+    if (useTransition) {
+      props += "  * - can be used in transition\n";
+    }
+    if (props !== '') {
+      out += "\nProperties:\n" + props;
+    }
+    if (values !== '') {
+      out += "\nValues:\n" + values;
     }
     return out;
-};
+  };
 
-module.exports = inspect;
+}).call(this);
