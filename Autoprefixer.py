@@ -1,19 +1,13 @@
 import sublime
 import sublime_plugin
-import os
-import platform
-from subprocess import Popen, PIPE
 from os.path import dirname, realpath, join
-
+from spawn_node import spawn_node
 
 # monkeypatch `Region` to be iterable
 sublime.Region.totuple = lambda self: (self.a, self.b)
 sublime.Region.__iter__ = lambda self: self.totuple().__iter__()
 
 BIN_PATH = join(sublime.packages_path(), dirname(realpath(__file__)), 'autoprefixer', 'bin', 'autoprefixer')
-IS_WINDOWS = platform.system() == 'Windows'
-IS_OSX = platform.system() == 'Darwin'
-
 
 class AutoprefixerCommand(sublime_plugin.TextCommand):
 	def run(self, edit):
@@ -36,25 +30,10 @@ class AutoprefixerCommand(sublime_plugin.TextCommand):
 				self.view.replace(edit, region, prefixed)
 
 	def prefix(self, data):
-		env = None
-		if IS_OSX:
-			# GUI apps in OS X doesn't contain .bashrc set paths
-			env = os.environ.copy()
-			env['PATH'] += ':/usr/local/bin'
 		try:
-			p = Popen(['node', BIN_PATH, '-b', self.browsers],
-				stdout=PIPE, stdin=PIPE, stderr=PIPE,
-				env=env, shell=IS_WINDOWS)
-		except OSError:
-			sublime.error_message('Couldn\'t find Node.js. Make sure it\'s in your $PATH. See install guide: https://github.com/sindresorhus/sublime-autoprefixer')
-			return
-		stdout, stderr = p.communicate(input=data.encode('utf-8'))
-		stdout = stdout.decode('utf-8')
-		stderr = stderr.decode('utf-8')
-		if stderr:
-			sublime.error_message('Autoprefixer error: ' + stderr)
-		else:
-			return stdout
+			return spawn_node(data, BIN_PATH, ['-b', self.browsers])
+		except StandardError as e:
+			sublime.error_message('Autoprefixer\n%s' % e)
 
 	def has_selection(self):
 		for sel in self.view.sel():
