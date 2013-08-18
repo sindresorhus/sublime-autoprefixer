@@ -1,0 +1,12 @@
+{
+  "name": "sublime-autoprefixer",
+  "dependencies": {
+    "cssbeautify": "~0.3.0",
+    "autoprefixer": "~0.7.20130808",
+    "detect-indent": "~0.1.0"
+  },
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "private": true
+}

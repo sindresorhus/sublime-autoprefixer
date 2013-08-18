@@ -1,14 +1,14 @@
 body {
-  transition: all 1s ease-out;
+	transition: all 1s ease-out;
 }
 
 p {
-  transform: skewx(10deg) translatex(150px);
+	transform: skewx(10deg) translatex(150px);
 }
 
 a {
-  box-sizing: border-box;
-  -webkit-border-radius: none;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
 }
 
 /* ♥ */

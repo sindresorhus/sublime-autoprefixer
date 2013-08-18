@@ -1,13 +1,18 @@
 import sublime
 import sublime_plugin
 from os.path import dirname, realpath, join
-from spawn_node import spawn_node
+
+try:
+	# Python 2
+	from node_bridge import node_bridge
+except:
+	from .node_bridge import node_bridge
 
 # monkeypatch `Region` to be iterable
 sublime.Region.totuple = lambda self: (self.a, self.b)
 sublime.Region.__iter__ = lambda self: self.totuple().__iter__()
 
-BIN_PATH = join(sublime.packages_path(), dirname(realpath(__file__)), 'autoprefixer', 'bin', 'autoprefixer')
+BIN_PATH = join(sublime.packages_path(), dirname(realpath(__file__)), 'autoprefixer.js')
 
 class AutoprefixerCommand(sublime_plugin.TextCommand):
 	def run(self, edit):
@@ -31,7 +36,7 @@ class AutoprefixerCommand(sublime_plugin.TextCommand):
 
 	def prefix(self, data):
 		try:
-			return spawn_node(data, BIN_PATH, ['-b', self.browsers])
+			return node_bridge(data, BIN_PATH, [self.browsers])
 		except StandardError as e:
 			sublime.error_message('Autoprefixer\n%s' % e)
 
