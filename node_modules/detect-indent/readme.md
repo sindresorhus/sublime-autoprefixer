@@ -13,7 +13,7 @@ Pass in a string and get the indentation. Works in Node.js and the browser on an
 
 ## Install
 
-Download the library [manually](https://github.com/sindresorhus/detect-indent/raw/master/detect-indent.js) or with a package-manager.
+Download the library [manually](https://github.com/sindresorhus/detect-indent/releases) or with a package-manager.
 
 #### [npm](https://npmjs.org/package/detect-indent)
 
