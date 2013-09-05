@@ -16,7 +16,7 @@ BIN_PATH = join(sublime.packages_path(), dirname(realpath(__file__)), 'autoprefi
 
 class AutoprefixerCommand(sublime_plugin.TextCommand):
 	def run(self, edit):
-		if not self.is_css():
+		if not self.is_css() and not self.is_unsaved_buffer_without_syntax():
 			return
 		self.browsers = ','.join(sublime.load_settings('Autoprefixer.sublime-settings').get('browsers'))
 		if not self.has_selection():
@@ -46,6 +46,12 @@ class AutoprefixerCommand(sublime_plugin.TextCommand):
 			if start != end:
 				return True
 		return False
+
+	def is_unsaved_buffer_without_syntax(self):
+		return self.view.file_name() == None and self.is_plaintext() == True
+
+	def is_plaintext(self):
+		return self.view.settings().get('syntax') == 'Packages/Text/Plain text.tmLanguage'
 
 	def is_css(self):
 		return self.view.settings().get('syntax') == 'Packages/CSS/CSS.tmLanguage'
