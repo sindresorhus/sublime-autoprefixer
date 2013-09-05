@@ -16,11 +16,11 @@ def node_bridge(data, bin, args=[]):
 			stdout=PIPE, stdin=PIPE, stderr=PIPE,
 			env=env, shell=IS_WINDOWS)
 	except OSError:
-		raise StandardError('Couldn\'t find Node.js. Make sure it\'s in your $PATH by running `node -v` in your command-line.')
+		raise Exception('Couldn\'t find Node.js. Make sure it\'s in your $PATH by running `node -v` in your command-line.')
 	stdout, stderr = p.communicate(input=data.encode('utf-8'))
 	stdout = stdout.decode('utf-8')
 	stderr = stderr.decode('utf-8')
 	if stderr:
-		raise StandardError('Error: %s' % stderr)
+		raise Exception('Error: %s' % stderr)
 	else:
 		return stdout

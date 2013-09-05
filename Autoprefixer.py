@@ -37,7 +37,7 @@ class AutoprefixerCommand(sublime_plugin.TextCommand):
 	def prefix(self, data):
 		try:
 			return node_bridge(data, BIN_PATH, [self.browsers])
-		except StandardError as e:
+		except Exception as e:
 			sublime.error_message('Autoprefixer\n%s' % e)
 
 	def has_selection(self):
