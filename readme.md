@@ -13,7 +13,7 @@ Adding prefixes manually is a chore. It's also hard to keep track of where and w
 
 Install `Autoprefixer` with [Package Control](https://sublime.wbond.net) and restart Sublime.
 
-**You need to have [Node.js](http://nodejs.org) installed.**
+**You need to have [Node.js](http://nodejs.org) installed.**  
 Make sure it's in your $PATH by running `node -v` in your command-line.
 
 
