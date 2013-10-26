@@ -57,7 +57,7 @@ class AutoprefixerCommand(sublime_plugin.TextCommand):
 		return self.view.settings().get('syntax') == 'Packages/CSS/CSS.tmLanguage'
 
 	def get_setting(self, key):
-		setting = self.view.settings().get('Autoprefixer').get(key)
-		if setting is None:
-			setting = sublime.load_settings('Autoprefixer.sublime-settings').get(key)
-		return setting
+		settings = self.view.settings().get('Autoprefixer')
+		if settings is None:
+			settings = sublime.load_settings('Autoprefixer.sublime-settings')
+		return settings.get(key)
