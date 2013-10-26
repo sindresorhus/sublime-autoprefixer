@@ -18,7 +18,7 @@ class AutoprefixerCommand(sublime_plugin.TextCommand):
 	def run(self, edit):
 		if not self.is_css() and not self.is_unsaved_buffer_without_syntax():
 			return
-		self.browsers = ','.join(self.get_browsers())
+		self.browsers = ','.join(self.get_setting('browsers'))
 		if not self.has_selection():
 			region = sublime.Region(0, self.view.size())
 			originalBuffer = self.view.substr(region)
@@ -56,8 +56,8 @@ class AutoprefixerCommand(sublime_plugin.TextCommand):
 	def is_css(self):
 		return self.view.settings().get('syntax') == 'Packages/CSS/CSS.tmLanguage'
 
-	def get_browsers(self):
-		browsers = self.view.settings().get('Autoprefixer').get('browsers')
-		if browsers is None:
-			browsers = sublime.load_settings('Autoprefixer.sublime-settings').get('browsers')
-		return browsers
+	def get_setting(self, key):
+		setting = self.view.settings().get('Autoprefixer').get(key)
+		if setting is None:
+			setting = sublime.load_settings('Autoprefixer.sublime-settings').get(key)
+		return setting
