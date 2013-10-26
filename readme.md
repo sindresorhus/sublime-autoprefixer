@@ -24,7 +24,7 @@ In a CSS file, open the Command Palette *(Cmd+Shift+P)* and choose `Autoprefix C
 
 ### Options
 
-*(Preferences > Package Settings > JsRun > Settings - User)*
+*(Preferences > Package Settings > Autoprefixer > Settings - User)*
 
 You can specify which browsers you need to support using an array of rules:
 
@@ -33,6 +33,7 @@ You can specify which browsers you need to support using an array of rules:
 - `ff > 20` and `ff >= 20` is Firefox versions newer, that 20.
 - `none` don’t set any browsers to clean CSS from any vendor prefixes.
 - You can also set browsers directly.
+
 
 #### Browser names
 
@@ -44,6 +45,7 @@ You can specify which browsers you need to support using an array of rules:
 - `ios` for iOS Safari.
 - `android` for old Android stock browser.
 - `bb` for Blackberry browser.
+
 
 #### Default
 
@@ -75,6 +77,22 @@ Example:
 [
 	{ "keys": ["alt+super+p"], "command": "autoprefixer" }
 ]
+```
+
+
+### Project settings
+
+You can override the default and user settings for individual projects. Just add an `"Autoprefixer"` object to the `"settings"` object in the project's `.sublime-project` file containing your project specific settings.
+
+Example:
+
+```json
+{
+	"Autoprefixer":
+	{
+		"browser": ["last 1 version", "> 10%", "ie 8", "ie 7"]
+	}
+}
 ```
 
 
