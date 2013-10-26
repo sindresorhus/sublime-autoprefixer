@@ -80,6 +80,20 @@ Example:
 ```
 
 
+### Project settings
+
+You can override the default and user settings for individual projects. Just add an `"Autoprefixer"` object to the `"settings"` object in the project's `.sublime-project` file containing your project specific settings.
+
+Example:
+
+```json
+"Autoprefixer":
+{
+	"browser": ["last 1 version", "> 10%", "ie 8", "ie 7"]
+}
+```
+
+
 ## License
 
 MIT License • © [Sindre Sorhus](http://sindresorhus.com)
