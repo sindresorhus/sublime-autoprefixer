@@ -87,9 +87,11 @@ You can override the default and user settings for individual projects. Just add
 Example:
 
 ```json
-"Autoprefixer":
 {
-	"browser": ["last 1 version", "> 10%", "ie 8", "ie 7"]
+	"Autoprefixer":
+	{
+		"browser": ["last 1 version", "> 10%", "ie 8", "ie 7"]
+	}
 }
 ```
 
