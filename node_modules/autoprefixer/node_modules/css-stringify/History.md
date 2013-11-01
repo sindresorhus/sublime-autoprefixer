@@ -1,4 +1,11 @@
 
+1.3.2 / 2013-10-18 
+==================
+
+ * fix whitespace and indentation in the Compressed compiler.
+ * add @namespace support
+ * add .stylesheet(node)
+
 1.3.1 / 2013-06-02 
 ==================
 

@@ -104,6 +104,9 @@ parse tree with `.position` enabled:
 }
 ```
 
+If you also pass in `source: 'path/to/original.css'`, that will be set
+on `node.position.source`.
+
 ## Performance
 
   Parsed 15,000 lines of CSS (2mb) in 40ms on my macbook air.
