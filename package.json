@@ -1,9 +1,7 @@
 {
   "name": "sublime-autoprefixer",
   "dependencies": {
-    "autoprefixer": "~0.8.0",
-    "detect-indent": "~0.1.0",
-    "css": "~1.4.1"
+    "autoprefixer": "~1.0.0"
   },
   "engines": {
     "node": ">=0.8.0"
