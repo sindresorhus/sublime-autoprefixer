@@ -10,7 +10,22 @@ process.stdin.on('data', function (data) {
 });
 
 process.stdin.on('end', function () {
+	var result;
 	var browsers = process.argv[2].split(',');
-	var result = autoprefixer.apply(this, browsers).process(str);
+
+	try {
+		result = autoprefixer.apply(this, browsers).process(str);
+	} catch (err) {
+		if (/Unclosed block/.test(err.message)) {
+			return console.error('Couldn\'t find any valid CSS rules. You can\'t select properties. Select a whole rule and try again.');
+		}
+
+		if (err.name === 'TypeError') {
+			return console.error('Invalid CSS.');
+		}
+
+		throw err;
+	}
+
 	process.stdout.write(result.css);
 });
