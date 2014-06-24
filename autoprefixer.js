@@ -1,20 +1,12 @@
 'use strict';
+var stdin = require('get-stdin');
 var autoprefixer = require('autoprefixer');
-var str = '';
 
-process.stdin.setEncoding('utf8');
-process.stdin.resume();
-
-process.stdin.on('data', function (data) {
-	str += data;
-});
-
-process.stdin.on('end', function () {
-	var result;
+stdin(function (data) {
 	var browsers = process.argv[2].split(',');
 
 	try {
-		result = autoprefixer.apply(this, browsers).process(str);
+		process.stdout.write(autoprefixer.apply(null, browsers).process(data).css);
 	} catch (err) {
 		if (/Unclosed block/.test(err.message)) {
 			return console.error('Couldn\'t find any valid CSS rules. You can\'t select properties. Select a whole rule and try again.');
@@ -26,6 +18,4 @@ process.stdin.on('end', function () {
 
 		throw err;
 	}
-
-	process.stdout.write(result.css);
 });
