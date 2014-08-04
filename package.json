@@ -2,7 +2,7 @@
   "name": "sublime-autoprefixer",
   "dependencies": {
     "autoprefixer": "^2.0.0",
-    "get-stdin": "^0.1.0"
+    "get-stdin": "^1.0.0"
   },
   "engines": {
     "node": ">=0.10.0"
