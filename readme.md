@@ -8,7 +8,7 @@ You shouldn't have to care about vendor prefixes. Now you don't have too.
 
 Adding prefixes manually is a chore. It's also hard to keep track of where and which prefixes are needed. This plugin uses the [Autoprefixer](https://github.com/ai/autoprefixer) library to prefix properties and values according to the [Can I Use](http://caniuse.com/) database. Which means it will only add the necessary prefixes and not bloat your stylesheet. It even lets you specify what browsers you want to target. In addition it will remove existing prefixes which are no longer needed.
 
-Works only with CSS. Not any preprocessors like Sass or LESS.
+Works only with CSS and not preprocessors like Sass or LESS.
 
 
 ## Install
@@ -18,7 +18,7 @@ Install `Autoprefixer` with [Package Control](https://sublime.wbond.net) and res
 **You need to have [Node.js](http://nodejs.org) installed.**  
 Make sure it's in your $PATH by running `node -v` in your command-line.
 
-See the Autoprefixer version in use [here](https://github.com/sindresorhus/sublime-autoprefixer/blob/master/node_modules/autoprefixer/package.json#L3).
+See the Autoprefixer version in use [here](https://github.com/sindresorhus/sublime-autoprefixer/blob/master/node_modules/autoprefixer-core/package.json#L3).
 
 
 ## Getting started
