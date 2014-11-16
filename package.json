@@ -1,7 +1,7 @@
 {
   "name": "sublime-autoprefixer",
   "dependencies": {
-    "autoprefixer-core": "^3.0.0",
+    "autoprefixer-core": "^4.0.0",
     "get-stdin": "^3.0.0"
   },
   "engines": {

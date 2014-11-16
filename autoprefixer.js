@@ -16,7 +16,7 @@ stdin(function (data) {
 
 		if (err.name === 'TypeError') {
 			console.error('Invalid CSS');
-			return
+			return;
 		}
 
 		throw err;
