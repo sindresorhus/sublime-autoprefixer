@@ -16,7 +16,8 @@ Works only with CSS and not preprocessors like Sass or LESS.
 Install `Autoprefixer` with [Package Control](https://sublime.wbond.net) and restart Sublime.
 
 **You need to have [Node.js](http://nodejs.org) installed.**  
-Make sure it's in your $PATH by running `node -v` in your command-line.
+Make sure it's in your $PATH by running `node -v` in your command-line.  
+On OS X you need to make sure it's in `/usr/local/bin` or symlink it there.
 
 See the Autoprefixer version in use [here](https://github.com/sindresorhus/sublime-autoprefixer/blob/master/node_modules/autoprefixer-core/package.json#L3).
 
