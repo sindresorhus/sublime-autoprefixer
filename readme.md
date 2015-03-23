@@ -53,7 +53,7 @@ See the [supported browser names](https://github.com/ai/autoprefixer#browsers).
 }
 ```
 
-This will add the needed prefixes for the last version of each browser, all browsers with market share of more than 10% globbaly and 5% in US, and Internet Explorer 7 and 8.
+This will add the needed prefixes for the last version of each browser, all browsers with market share of more than 10% globally and 5% in the US, and Internet Explorer 7 and 8.
 
 
 ### Keyboard shortcut
