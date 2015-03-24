@@ -49,11 +49,11 @@ See the [supported browser names](https://github.com/ai/autoprefixer#browsers).
 
 ```json
 {
-	"browsers": ["last 1 version", "> 10%", "ie 8", "ie 7"]
+	"browsers": ["last 1 version", "> 10%", "> 5% in US", "ie 8", "ie 7"]
 }
 ```
 
-This will add the needed prefixes for the last version of each browser, all browsers with market share of more than 10%, and Internet Explorer 7 and 8.
+This will add the needed prefixes for the last version of each browser, all browsers with market share of more than 10% globally and 5% in the US, and Internet Explorer 7 and 8.
 
 
 ### Keyboard shortcut
