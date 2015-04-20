@@ -4,6 +4,16 @@ function GCD(a, b) {
   return GCD(b, a % b)
 }
 
+function findPrecision(n) {
+  var e = 1
+
+  while (Math.round(n * e) / e !== n) {
+    e *= 10
+  }
+
+  return e
+}
+
 function num2fraction(num) {
   if (num === 0) return 0
 
@@ -12,7 +22,7 @@ function num2fraction(num) {
   }
 
 
-  var precision = 100000000 //精确度
+  var precision = findPrecision(num) //精确度
   var number = num * precision
   var gcd = GCD(number, precision)
 
