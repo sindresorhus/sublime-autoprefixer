@@ -1,24 +1,28 @@
 'use strict';
 var stdin = require('get-stdin');
+var postcss = require('postcss');
 var autoprefixer = require('autoprefixer-core');
 
 stdin(function (data) {
 	var opts = JSON.parse(process.argv[2]);
 
-	try {
-		var css = autoprefixer(opts).process(data, {safe: true}).css;
-		process.stdout.write(css);
-	} catch (err) {
-		if (/Unclosed block/.test(err.message)) {
-			console.error('Couldn\'t find any valid CSS rules. You can\'t select properties. Select a whole rule and try again.');
-			return;
+	postcss()
+	.use(autoprefixer(opts))
+	.process(data, {safe: true})
+	.then(function (res) {
+		process.stdout.write(res.css);
+
+		// TODO: log warnings in an non-error way somehow
+		// var warnings = res.warnings();
+
+		// if (warnings.length > 0) {
+		// 	console.error(warnings.join('\n  '));
+		// }
+	}).catch(function (err) {
+		if (err.name === 'CssSyntaxError') {
+			err.message += '\n' + err.showSourceCode();
 		}
 
-		if (err.name === 'TypeError') {
-			console.error('Invalid CSS');
-			return;
-		}
-
-		throw err;
-	}
+		console.error(err.message.replace('<css input>:', ''));
+	});
 });

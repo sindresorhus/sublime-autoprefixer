@@ -1,7 +1,8 @@
 {
   "dependencies": {
     "autoprefixer-core": "^5.1.0",
-    "get-stdin": "^4.0.1"
+    "get-stdin": "^4.0.1",
+    "postcss": "^4.1.11"
   },
   "engines": {
     "node": ">=0.10.0"
