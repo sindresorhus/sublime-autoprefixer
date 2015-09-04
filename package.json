@@ -1,11 +1,9 @@
 {
   "dependencies": {
-    "autoprefixer-core": "^5.1.0",
+    "autoprefixer": "^6.0.0",
     "get-stdin": "^4.0.1",
-    "postcss": "^4.1.11"
-  },
-  "engines": {
-    "node": ">=0.10.0"
+    "postcss": "^5.0.4",
+    "postcss-safe-parser": "^1.0.1"
   },
   "private": true
 }

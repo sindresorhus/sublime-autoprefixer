@@ -1,19 +1,20 @@
 'use strict';
 var stdin = require('get-stdin');
 var postcss = require('postcss');
-var autoprefixer = require('autoprefixer-core');
+var autoprefixer = require('autoprefixer');
+var postcssSafeParser = require('postcss-safe-parser');
 
 stdin(function (data) {
 	var opts = JSON.parse(process.argv[2]);
 
-	postcss()
-	.use(autoprefixer(opts))
-	.process(data, {safe: true})
-	.then(function (res) {
-		process.stdout.write(res.css);
+	postcss(autoprefixer(opts)).process(data, {
+		parser: postcssSafeParser
+	})
+	.then(function (result) {
+		process.stdout.write(result.css);
 
 		// TODO: log warnings in an non-error way somehow
-		// var warnings = res.warnings();
+		// var warnings = result.warnings();
 
 		// if (warnings.length > 0) {
 		// 	console.error(warnings.join('\n  '));
