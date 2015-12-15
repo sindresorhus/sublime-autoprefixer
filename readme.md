@@ -40,7 +40,8 @@ See the [supported browser names](https://github.com/ai/autoprefixer#browsers).
 
 ```json
 {
-	"browsers": ["last 2 versions"]
+	"browsers": ["last 2 versions"],
+	"prefixOnSave": false
 }
 ```
 
