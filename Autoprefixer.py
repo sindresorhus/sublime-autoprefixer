@@ -35,8 +35,8 @@ class AutoprefixerCommand(sublime_plugin.TextCommand):
 	def prefix(self, data):
 		try:
 			return node_bridge(data, BIN_PATH, [json.dumps({
-				'browsers': AutoprefixerCommand.get_setting(self.view, 'browsers'),
-				'cascade': AutoprefixerCommand.get_setting(self.view, 'cascade')
+				'browsers': get_setting(self.view, 'browsers'),
+				'cascade': get_setting(self.view, 'cascade')
 			})])
 		except Exception as e:
 			sublime.error_message('Autoprefixer\n%s' % e)
@@ -48,24 +48,19 @@ class AutoprefixerCommand(sublime_plugin.TextCommand):
 				return True
 		return False
 
-	@staticmethod
-	def get_setting(view, key):
-		settings = view.settings().get('Autoprefixer')
-		if settings is None:
-			settings = sublime.load_settings('Autoprefixer.sublime-settings')
-		return settings.get(key)
 
 class AutoprefixerPreSaveCommand(sublime_plugin.EventListener):
 	def on_pre_save(self, view):
 
-		if AutoprefixerCommand.get_setting(view, 'prefixOnSave') is True:
-
-			if int(sublime.version()) >= 3080:
-				self.sublime_vars = view.window().extract_variables()
-			else:
-				self.sublime_vars = {
-					'file_extension': splitext(view.file_name())[1][1:]
-				}
-
-			if self.sublime_vars['file_extension'] in ('css'):
+		if get_setting(view, 'prefixOnSave') is True and is_css(view):
 				view.run_command('autoprefixer')
+
+
+def get_setting(view, key):
+	settings = view.settings().get('Autoprefixer')
+	if settings is None:
+		settings = sublime.load_settings('Autoprefixer.sublime-settings')
+	return settings.get(key)
+
+def is_css(view):
+		return view.settings().get('syntax') == 'Packages/CSS/CSS.tmLanguage'
