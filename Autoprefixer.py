@@ -1,7 +1,7 @@
 import sublime
 import sublime_plugin
 import json
-from os.path import dirname, realpath, join
+from os.path import dirname, realpath, join, splitext
 
 try:
 	# Python 2
@@ -63,4 +63,4 @@ def get_setting(view, key):
 	return settings.get(key)
 
 def is_css(view):
-		return view.settings().get('syntax') == 'Packages/CSS/CSS.tmLanguage'
+	return splitext(view.settings().get('syntax'))[0] == 'Packages/CSS/CSS'
