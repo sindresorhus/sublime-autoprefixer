@@ -1,7 +1,7 @@
 import sublime
 import sublime_plugin
 import json
-from os.path import dirname, realpath, join
+from os.path import dirname, realpath, join, splitext, basename
 
 try:
 	# Python 2
@@ -14,6 +14,16 @@ sublime.Region.totuple = lambda self: (self.a, self.b)
 sublime.Region.__iter__ = lambda self: self.totuple().__iter__()
 
 BIN_PATH = join(sublime.packages_path(), dirname(realpath(__file__)), 'autoprefixer.js')
+
+def get_setting(view, key):
+	settings = view.settings().get('Autoprefixer')
+	if settings is None:
+		settings = sublime.load_settings('Autoprefixer.sublime-settings')
+	return settings.get(key)
+
+def is_css(view):
+	return splitext(basename(view.settings().get('syntax')))[0] == 'CSS'
+
 
 class AutoprefixerCommand(sublime_plugin.TextCommand):
 	def run(self, edit):
@@ -35,8 +45,8 @@ class AutoprefixerCommand(sublime_plugin.TextCommand):
 	def prefix(self, data):
 		try:
 			return node_bridge(data, BIN_PATH, [json.dumps({
-				'browsers': self.get_setting('browsers'),
-				'cascade': self.get_setting('cascade')
+				'browsers': get_setting(self.view, 'browsers'),
+				'cascade': get_setting(self.view, 'cascade')
 			})])
 		except Exception as e:
 			sublime.error_message('Autoprefixer\n%s' % e)
@@ -48,8 +58,8 @@ class AutoprefixerCommand(sublime_plugin.TextCommand):
 				return True
 		return False
 
-	def get_setting(self, key):
-		settings = self.view.settings().get('Autoprefixer')
-		if settings is None:
-			settings = sublime.load_settings('Autoprefixer.sublime-settings')
-		return settings.get(key)
+
+class AutoprefixerPreSaveCommand(sublime_plugin.EventListener):
+	def on_pre_save(self, view):
+		if get_setting(view, 'prefixOnSave') is True and is_css(view):
+				view.run_command('autoprefixer')

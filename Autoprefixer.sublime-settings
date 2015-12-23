@@ -1,5 +1,6 @@
 {
 	"browsers": ["last 2 versions"],
 	"cascade": true,
-	"remove": true
+	"remove": true,
+	"prefixOnSave": false
 }
