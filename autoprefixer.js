@@ -1,10 +1,10 @@
 'use strict';
-var stdin = require('get-stdin');
+var getStdin = require('get-stdin');
 var postcss = require('postcss');
 var autoprefixer = require('autoprefixer');
 var postcssSafeParser = require('postcss-safe-parser');
 
-stdin(function (data) {
+getStdin().then(function (data) {
 	var opts = JSON.parse(process.argv[2]);
 
 	postcss(autoprefixer(opts)).process(data, {
