@@ -15,8 +15,8 @@ Works only with CSS and not preprocessors like Sass or LESS.
 
 Install `Autoprefixer` with [Package Control](https://packagecontrol.io) and restart Sublime.
 
-**You need to have [Node.js](http://nodejs.org) >=0.12.0 installed.**  
-Make sure it's in your $PATH by running `node -v` in your command-line.  
+**You need to have [Node.js](http://nodejs.org) >=0.12.0 installed.**<br>
+Make sure it's in your $PATH by running `node -v` in your command-line.<br>
 On macOS you need to make sure it's in `/usr/local/bin` or symlink it there.
 
 See the Autoprefixer version in use [here](https://github.com/sindresorhus/sublime-autoprefixer/blob/master/node_modules/autoprefixer/package.json#L3).
@@ -26,7 +26,6 @@ See the Autoprefixer version in use [here](https://github.com/sindresorhus/subli
 
 In a CSS file, open the Command Palette *(Cmd+Shift+P)* and choose `Autoprefix CSS`. You can alternatively create one or more selections before running the command to only prefix those parts.
 
-
 ### Options
 
 *(Preferences > Package Settings > Autoprefixer > Settings - User)*
@@ -34,7 +33,6 @@ In a CSS file, open the Command Palette *(Cmd+Shift+P)* and choose `Autoprefix C
 You can specify which browsers you need to support using an array of rules.
 
 See the [supported browser names](https://github.com/ai/autoprefixer#browsers).
-
 
 #### Default
 
@@ -45,7 +43,6 @@ See the [supported browser names](https://github.com/ai/autoprefixer#browsers).
 }
 ```
 
-
 #### Example
 
 ```json
@@ -55,7 +52,6 @@ See the [supported browser names](https://github.com/ai/autoprefixer#browsers).
 ```
 
 This will add the needed prefixes for the last version of each browser, all browsers with market share of more than 10% globally and 5% in the US, and Internet Explorer 7 and 8.
-
 
 ### Keyboard shortcut
 
@@ -68,7 +64,6 @@ Example:
 	{ "keys": ["alt+super+p"], "command": "autoprefixer" }
 ]
 ```
-
 
 ### Project settings
 
@@ -89,4 +84,4 @@ Example:
 
 ## License
 
-MIT © [Sindre Sorhus](http://sindresorhus.com)
+MIT © [Sindre Sorhus](https://sindresorhus.com)
