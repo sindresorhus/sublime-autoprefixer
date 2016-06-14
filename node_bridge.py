@@ -2,14 +2,14 @@ import os
 import platform
 import subprocess
 
-IS_OSX = platform.system() == 'Darwin'
+IS_MACOS = platform.system() == 'Darwin'
 IS_WINDOWS = platform.system() == 'Windows'
 
 def node_bridge(data, bin, args=[]):
 	env = None
 	startupinfo = None
-	if IS_OSX:
-		# GUI apps in OS X doesn't contain .bashrc/.zshrc set paths
+	if IS_MACOS:
+		# GUI apps on macOS doesn't contain .bashrc/.zshrc set paths
 		env = os.environ.copy()
 		env['PATH'] += ':/usr/local/bin'
 	if IS_WINDOWS:

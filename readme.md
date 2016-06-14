@@ -17,7 +17,7 @@ Install `Autoprefixer` with [Package Control](https://packagecontrol.io) and res
 
 **You need to have [Node.js](http://nodejs.org) >=0.12.0 installed.**  
 Make sure it's in your $PATH by running `node -v` in your command-line.  
-On OS X you need to make sure it's in `/usr/local/bin` or symlink it there.
+On macOS you need to make sure it's in `/usr/local/bin` or symlink it there.
 
 See the Autoprefixer version in use [here](https://github.com/sindresorhus/sublime-autoprefixer/blob/master/node_modules/autoprefixer/package.json#L3).
 
