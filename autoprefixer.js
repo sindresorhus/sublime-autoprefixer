@@ -8,9 +8,7 @@ var postcssScssParser = require('postcss-scss');
 getStdin().then(function (data) {
 	var opts = JSON.parse(process.argv[2]);
 
-	var postcssParser = opts.is_css ?
-							postcssSafeParser :
-							postcssScssParser;
+	var postcssParser = opts.is_css ? postcssSafeParser : postcssScssParser;
 
 	postcss(autoprefixer(opts)).process(data, {
 		parser: postcssParser
