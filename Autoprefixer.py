@@ -21,8 +21,8 @@ def get_setting(view, key):
 		settings = sublime.load_settings('Autoprefixer.sublime-settings')
 	return settings.get(key)
 
-def is_css(view):
-	return splitext(basename(view.settings().get('syntax')))[0] == 'CSS'
+def is_style_syntax(view):
+	return splitext(basename(view.settings().get('syntax')))[0] in ['CSS', 'Sass', 'SCSS']
 
 
 class AutoprefixerCommand(sublime_plugin.TextCommand):
@@ -44,9 +44,11 @@ class AutoprefixerCommand(sublime_plugin.TextCommand):
 
 	def prefix(self, data):
 		try:
+			isCSS = splitext(basename(self.view.settings().get('syntax')))[0] == 'CSS'
 			return node_bridge(data, BIN_PATH, [json.dumps({
 				'browsers': get_setting(self.view, 'browsers'),
-				'cascade': get_setting(self.view, 'cascade')
+				'cascade': get_setting(self.view, 'cascade'),
+				'is_css': isCSS
 			})])
 		except Exception as e:
 			sublime.error_message('Autoprefixer\n%s' % e)
@@ -61,5 +63,5 @@ class AutoprefixerCommand(sublime_plugin.TextCommand):
 
 class AutoprefixerPreSaveCommand(sublime_plugin.EventListener):
 	def on_pre_save(self, view):
-		if get_setting(view, 'prefixOnSave') is True and is_css(view):
+		if get_setting(view, 'prefixOnSave') is True and is_style_syntax(view):
 				view.run_command('autoprefixer')
