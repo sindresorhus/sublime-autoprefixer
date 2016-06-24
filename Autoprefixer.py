@@ -1,7 +1,7 @@
 import sublime
 import sublime_plugin
 import json
-from os.path import dirname, realpath, join, splitext
+from os.path import dirname, realpath, join, splitext, basename
 
 try:
 	# Python 2
@@ -21,14 +21,18 @@ def get_setting(view, key):
 		settings = sublime.load_settings('Autoprefixer.sublime-settings')
 	return settings.get(key)
 
-def is_style_file(view):
-	return is_css_file(view) or is_scss_file(view)
+def get_syntax(view):
+	return splitext(basename(view.settings().get('syntax')))[0];
 
-def is_css_file(view):
-	return splitext(view.file_name())[1] == ('.css')
+def get_extension(view):
+	file_name = view.file_name();
+	return file_name and splitext(file_name)[1];
 
-def is_scss_file(view):
-	return splitext(view.file_name())[1] == ('.scss')
+def is_css(view):
+	return get_syntax(view) == 'CSS' or get_extension(view) == '.css'
+
+def is_scss(view):
+	return get_syntax(view) in ('Sass', 'SCSS') or get_extension(view) == '.scss'
 
 
 class AutoprefixerCommand(sublime_plugin.TextCommand):
@@ -53,7 +57,7 @@ class AutoprefixerCommand(sublime_plugin.TextCommand):
 			return node_bridge(data, BIN_PATH, [json.dumps({
 				'browsers': get_setting(self.view, 'browsers'),
 				'cascade': get_setting(self.view, 'cascade'),
-				'is_css': is_css_file(self.view)
+				'is_css': is_css(self.view)
 			})])
 		except Exception as e:
 			sublime.error_message('Autoprefixer\n%s' % e)
@@ -68,5 +72,5 @@ class AutoprefixerCommand(sublime_plugin.TextCommand):
 
 class AutoprefixerPreSaveCommand(sublime_plugin.EventListener):
 	def on_pre_save(self, view):
-		if get_setting(view, 'prefixOnSave') is True and is_style_file(view):
+		if get_setting(view, 'prefixOnSave') is True and (is_css(view) or is_scss(view)):
 				view.run_command('autoprefixer')
