@@ -1,6 +1,6 @@
 # sublime-autoprefixer
 
-> Sublime plugin to prefix your CSS
+> Sublime plugin to prefix your CSS or SCSS
 
 You shouldn't have to care about vendor prefixes. Now you don't have too.
 
@@ -8,7 +8,7 @@ You shouldn't have to care about vendor prefixes. Now you don't have too.
 
 Adding prefixes manually is a chore. It's also hard to keep track of where and which prefixes are needed. This plugin uses the [Autoprefixer](https://github.com/ai/autoprefixer) library to prefix properties and values according to the [Can I Use](http://caniuse.com/) database. Which means it will only add the necessary prefixes and not bloat your stylesheet. It even lets you specify what browsers you want to target. In addition it will remove existing prefixes which are no longer needed.
 
-Works only with CSS and not preprocessors like Sass or LESS.
+Works with CSS and SCSS, but not other preprocessors.
 
 
 ## Install

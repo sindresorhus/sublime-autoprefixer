@@ -3,12 +3,15 @@ var getStdin = require('get-stdin');
 var postcss = require('postcss');
 var autoprefixer = require('autoprefixer');
 var postcssSafeParser = require('postcss-safe-parser');
+var postcssScssParser = require('postcss-scss');
 
 getStdin().then(function (data) {
 	var opts = JSON.parse(process.argv[2]);
 
+	var postcssParser = opts.is_css ? postcssSafeParser : postcssScssParser;
+
 	postcss(autoprefixer(opts)).process(data, {
-		parser: postcssSafeParser
+		parser: postcssParser
 	})
 	.then(function (result) {
 		process.stdout.write(result.css);

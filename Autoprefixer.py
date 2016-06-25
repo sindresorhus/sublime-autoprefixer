@@ -21,8 +21,18 @@ def get_setting(view, key):
 		settings = sublime.load_settings('Autoprefixer.sublime-settings')
 	return settings.get(key)
 
+def get_syntax(view):
+	return splitext(basename(view.settings().get('syntax')))[0];
+
+def get_extension(view):
+	file_name = view.file_name();
+	return file_name and splitext(file_name)[1];
+
 def is_css(view):
-	return splitext(basename(view.settings().get('syntax')))[0] == 'CSS'
+	return get_syntax(view) == 'CSS' or get_extension(view) == '.css'
+
+def is_scss(view):
+	return get_syntax(view) in ('Sass', 'SCSS') or get_extension(view) == '.scss'
 
 
 class AutoprefixerCommand(sublime_plugin.TextCommand):
@@ -46,7 +56,8 @@ class AutoprefixerCommand(sublime_plugin.TextCommand):
 		try:
 			return node_bridge(data, BIN_PATH, [json.dumps({
 				'browsers': get_setting(self.view, 'browsers'),
-				'cascade': get_setting(self.view, 'cascade')
+				'cascade': get_setting(self.view, 'cascade'),
+				'is_css': is_css(self.view)
 			})])
 		except Exception as e:
 			sublime.error_message('Autoprefixer\n%s' % e)
@@ -61,5 +72,5 @@ class AutoprefixerCommand(sublime_plugin.TextCommand):
 
 class AutoprefixerPreSaveCommand(sublime_plugin.EventListener):
 	def on_pre_save(self, view):
-		if get_setting(view, 'prefixOnSave') is True and is_css(view):
+		if get_setting(view, 'prefixOnSave') is True and (is_css(view) or is_scss(view)):
 				view.run_command('autoprefixer')
