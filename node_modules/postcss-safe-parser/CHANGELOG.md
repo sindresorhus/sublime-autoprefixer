@@ -1,3 +1,6 @@
+## 2.0
+* Use PostCSS 5.2 core tokenizer.
+
 ## 1.0.7
 * Parse new lines according W3C CSS syntax specification.
 
