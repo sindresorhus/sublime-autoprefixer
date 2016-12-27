@@ -40,10 +40,11 @@
     }
 
     Browsers.prototype.parse = function(requirements) {
-      var ref;
+      var ref, ref1;
       return browserslist(requirements, {
+        stats: this.stats,
         path: (ref = this.options) != null ? ref.from : void 0,
-        stats: this.stats
+        env: (ref1 = this.options) != null ? ref1.env : void 0
       });
     };
 

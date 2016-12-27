@@ -38,11 +38,17 @@
     };
 
     Flex.prototype.set = function(decl, prefix) {
-      var spec;
+      var components, spec;
       spec = flexSpec(prefix)[0];
       if (spec === 2009) {
         decl.value = list.space(decl.value)[0];
         decl.value = Flex.oldValues[decl.value] || decl.value;
+        return Flex.__super__.set.call(this, decl, prefix);
+      } else if (spec === 2012) {
+        components = list.space(decl.value);
+        if (components.length === 3 && components[2] === '0') {
+          decl.value = components.slice(0, 2).concat('0px').join(' ');
+        }
         return Flex.__super__.set.call(this, decl, prefix);
       } else {
         return Flex.__super__.set.apply(this, arguments);
