@@ -38,7 +38,7 @@ See the [supported browser names](https://github.com/postcss/autoprefixer#browse
 
 ```json
 {
-	"browsers": ["last 2 versions"],
+	"browsers": ["defaults"],
 	"prefixOnSave": false
 }
 ```
