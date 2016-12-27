@@ -11,6 +11,7 @@ def node_bridge(data, bin, args=[]):
 	if IS_MACOS:
 		# GUI apps on macOS doesn't contain .bashrc/.zshrc set paths
 		env = os.environ.copy()
+		env['PATH'] += os.path.expanduser('~/n/bin')
 		env['PATH'] += ':/usr/local/bin'
 	if IS_WINDOWS:
 		startupinfo = subprocess.STARTUPINFO()
