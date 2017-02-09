@@ -1,6 +1,17 @@
 {
+	// @see  Browserslist docs https://github.com/ai/browserslist#queries
 	"browsers": ["defaults"],
+	// Autoprefixer use Visual Cascade, if CSS is uncompressed
+	// boolean
 	"cascade": true,
+	// Autoprefixer [remove outdated] prefixes
+	// boolean
 	"remove": true,
+	// Autoprefixer add prefixes for flexbox properties
+	// boolean|string (no-2009)
+	"flexbox": true,
+	// Autoprefixer add IE prefixes for Grid Layout properties/
+	// boolean
+	"grid": true,
 	"prefixOnSave": false
 }
