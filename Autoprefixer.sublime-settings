@@ -1,17 +1,23 @@
 {
-	// @see  Browserslist docs https://github.com/ai/browserslist#queries
+	// Settings:
+	// https://github.com/postcss/autoprefixer#options
+
+	// See: https://github.com/ai/browserslist#queries
 	"browsers": ["defaults"],
-	// Autoprefixer use Visual Cascade, if CSS is uncompressed
-	// boolean
+
+	// Use visual cascade if CSS is uncompressed
 	"cascade": true,
-	// Autoprefixer [remove outdated] prefixes
-	// boolean
+
+	// Remove outdated prefixes
 	"remove": true,
-	// Autoprefixer add prefixes for flexbox properties
-	// boolean|string (no-2009)
+
+	// Add prefixes for flexbox properties
+	// Set it to "no-2009" to only add prefixes for the final and IE versions of the specification
 	"flexbox": true,
-	// Autoprefixer add IE prefixes for Grid Layout properties/
-	// boolean
+
+	// Add IE prefixes for grid layout properties
 	"grid": true,
+
+	// Run Autoprefixer on file save
 	"prefixOnSave": false
 }
