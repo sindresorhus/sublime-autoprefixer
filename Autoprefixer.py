@@ -57,6 +57,9 @@ class AutoprefixerCommand(sublime_plugin.TextCommand):
 			return node_bridge(data, BIN_PATH, [json.dumps({
 				'browsers': get_setting(self.view, 'browsers'),
 				'cascade': get_setting(self.view, 'cascade'),
+				'remove': get_setting(self.view, 'remove'),
+				'flexbox': get_setting(self.view, 'flexbox'),
+				'grid': get_setting(self.view, 'grid'),
 				'is_css': is_css(self.view)
 			})])
 		except Exception as e:
