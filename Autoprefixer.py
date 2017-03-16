@@ -58,6 +58,7 @@ class AutoprefixerCommand(sublime_plugin.TextCommand):
 				'browsers': get_setting(self.view, 'browsers'),
 				'cascade': get_setting(self.view, 'cascade'),
 				'remove': get_setting(self.view, 'remove'),
+				'supports': get_setting(self.view, 'supports'),
 				'flexbox': get_setting(self.view, 'flexbox'),
 				'grid': get_setting(self.view, 'grid'),
 				'is_css': is_css(self.view)

@@ -1,5 +1,8 @@
 {
-	// Settings:
+	// Run Autoprefixer on file save
+	"prefixOnSave": false,
+
+	// Autoprefixer options:
 	// https://github.com/postcss/autoprefixer#options
 
 	// See: https://github.com/ai/browserslist#queries
@@ -11,13 +14,13 @@
 	// Remove outdated prefixes
 	"remove": true,
 
+	// Add prefixes for @supports parameters
+	"supports": true,
+
 	// Add prefixes for flexbox properties
 	// Set it to "no-2009" to only add prefixes for the final and IE versions of the specification
 	"flexbox": true,
 
 	// Add IE prefixes for grid layout properties
-	"grid": true,
-
-	// Run Autoprefixer on file save
-	"prefixOnSave": false
+	"grid": true
 }
