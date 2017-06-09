@@ -1,4 +1,6 @@
-[{
-	"caption": "Autoprefix CSS",
-	"command": "autoprefixer"
-}]
+[
+	{
+		"caption": "Autoprefix CSS",
+		"command": "autoprefixer"
+	}
+]

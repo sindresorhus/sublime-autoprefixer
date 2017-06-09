@@ -38,7 +38,7 @@ In a CSS file, open the Command Palette *(<kbd>Cmd</kbd> <kbd>Shift</kbd> <kbd>P
 
 ### Options
 
-*(Preferences → Package Settings → Autoprefixer → Settings - User)*
+*(Preferences → Package Settings → Autoprefixer)*
 
 You can specify which browsers you need to support using an array of rules.
 

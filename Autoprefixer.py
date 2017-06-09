@@ -9,7 +9,7 @@ try:
 except:
 	from .node_bridge import node_bridge
 
-# monkeypatch `Region` to be iterable
+# Monkeypatch `Region` to be iterable
 sublime.Region.totuple = lambda self: (self.a, self.b)
 sublime.Region.__iter__ = lambda self: self.totuple().__iter__()
 
