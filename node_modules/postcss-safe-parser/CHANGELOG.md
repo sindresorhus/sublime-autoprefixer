@@ -1,7 +1,10 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## 3.0.0
+## 3.0.1
+* Fix parsing IE filter with missed semicolon.
+
+## 3.0
 * Use PostCSS 6.0.
 * Use `babel-preset-env`.
 
