@@ -8,8 +8,11 @@ You shouldn't have to care about vendor prefixes. Now you don't have to!
 	<img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" width="160">
 </a>
 
+---
 
 ![](screenshot.gif)
+
+---
 
 Adding prefixes manually is a chore. It's also hard to keep track of where and which prefixes are needed. This plugin uses the [Autoprefixer](https://github.com/postcss/autoprefixer) module to prefix properties and values according to the [Can I Use](http://caniuse.com) database. Which means it will only add the necessary prefixes and not bloat your stylesheet. It even lets you specify what browsers you want to target. In addition it will remove existing prefixes which are no longer needed.
 
