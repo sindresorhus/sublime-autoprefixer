@@ -1,9 +1,5 @@
-p {
-	display: flex;
-}
-
-a {
-	box-sizing: border-box;
+::placeholder {
+	color: gray;
 }
 
 /* ♥ */

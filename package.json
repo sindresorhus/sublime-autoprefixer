@@ -1,7 +1,7 @@
 {
 	"private": true,
 	"dependencies": {
-		"autoprefixer": "^7.0.0",
+		"autoprefixer": "^8.0.0",
 		"get-stdin": "^5.0.1",
 		"postcss": "^6.0.1",
 		"postcss-safe-parser": "^3.0.0",

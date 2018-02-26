@@ -11,7 +11,8 @@ getStdin().then(function (data) {
 	var postcssParser = opts.is_css ? postcssSafeParser : postcssScssParser;
 
 	postcss(autoprefixer(opts)).process(data, {
-		parser: postcssParser
+		parser: postcssParser,
+		from: undefined
 	})
 	.then(function (result) {
 		process.stdout.write(result.css);
