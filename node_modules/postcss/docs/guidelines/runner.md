@@ -23,12 +23,12 @@ it can support plugins which accept a function, such as [`postcss-assets`]:
 
 ```js
 module.exports = [
-    require('postcss-assets')({
-        cachebuster: function (file) {
-            return fs.statSync(file).mtime.getTime().toString(16);
-        }
-    })
-];
+  require('postcss-assets')({
+    cachebuster: function (file) {
+      return fs.statSync(file).mtime.getTime().toString(16)
+    }
+  })
+]
 ```
 
 [`postcss-assets`]: https://github.com/borodean/postcss-assets
@@ -43,7 +43,7 @@ writing to disk (for example, a gulp transform), you should set both options
 to point to the same file:
 
 ```js
-processor.process({ from: file.path, to: file.path });
+processor.process({ from: file.path, to: file.path })
 ```
 
 ### 2.2. Use only the asynchronous API
@@ -53,8 +53,8 @@ The synchronous API is provided only for debugging, is slower,
 and can’t work with asynchronous plugins.
 
 ```js
-processor.process(opts).then(function (result) {
-    // processing is finished
+processor.process(opts).then(result => {
+  // processing is finished
 });
 ```
 
@@ -75,13 +75,13 @@ as the runner can be used by developers who are not familiar with JavaScript.
 Instead, handle such errors gracefully:
 
 ```js
-processor.process(opts).catch(function (error) {
-    if ( error.name === 'CssSyntaxError' ) {
-        process.stderr.write(error.message + error.showSourceCode());
-    } else {
-        throw error;
-    }
-});
+processor.process(opts).catch(error => {
+  if (error.name === 'CssSyntaxError') {
+    process.stderr.write(error.message + error.showSourceCode())
+  } else {
+    throw error
+  }
+})
 ```
 
 ### 3.2. Display `result.warnings()`
@@ -89,9 +89,9 @@ processor.process(opts).catch(function (error) {
 PostCSS runners must output warnings from `result.warnings()`:
 
 ```js
-result.warnings().forEach(function (warn) {
-    process.stderr.write(warn.toString());
-});
+result.warnings().forEach(warn => {
+  process.stderr.write(warn.toString())
+})
 ```
 
 See also [postcss-log-warnings] and [postcss-messages] plugins.
@@ -106,8 +106,8 @@ PostCSS runners must provide an option to save the source map in a different
 file:
 
 ```js
-if ( result.map ) {
-    fs.writeFile(opts.to + '.map', result.map.toString());
+if (result.map) {
+  fs.writeFile(opts.to + '.map', result.map.toString())
 }
 ```
 
@@ -115,7 +115,7 @@ if ( result.map ) {
 
 ### 4.1. Document your runner in English
 
-PostCSS runners must have their `README.md` written in English. Do not be afraid
+PostCSS runners must have their `README.md` wrote in English. Do not be afraid
 of your English skills, as the open source community will fix your errors.
 
 Of course, you are welcome to write documentation in other languages;
@@ -127,7 +127,7 @@ PostCSS runners must describe changes of all releases in a separate file,
 such as `ChangeLog.md`, `History.md`, or with [GitHub Releases].
 Visit [Keep A Changelog] for more information on how to write one of these.
 
-Of course you should use [SemVer].
+Of course, you should use [SemVer].
 
 [Keep A Changelog]: http://keepachangelog.com/
 [GitHub Releases]:  https://help.github.com/articles/creating-releases/

@@ -1,5 +1,5 @@
 div {
-	&:hover {
-		display: flex;
+	&::placeholder {
+		color: gray;
 	}
 }

@@ -23,7 +23,7 @@ Works with CSS and SCSS, but not other preprocessors.
 
 Install `Autoprefixer` with [Package Control](https://packagecontrol.io) and restart Sublime.
 
-**You need to have [Node.js](http://nodejs.org) 4+ installed.**<br>
+**You need to have [Node.js](http://nodejs.org) 8+ installed.**<br>
 Make sure it's in your $PATH by running `node --version` in your command-line.<br>
 On macOS you need to make sure it's in `/usr/local/bin` or symlink it there.
 
@@ -32,7 +32,7 @@ See the Autoprefixer version in use [here](https://github.com/sindresorhus/subli
 
 ## Getting started
 
-In a CSS file, open the Command Palette *(<kbd>Cmd</kbd> <kbd>Shift</kbd> <kbd>P</kbd>)* and choose `Autoprefix CSS`. You can alternatively create one or more selections before running the command to only prefix those parts.
+In a CSS file, open the Command Palette *(<kbd>Command</kbd> <kbd>Shift</kbd> <kbd>P</kbd>)* and choose `Autoprefix CSS`. You can alternatively create one or more selections before running the command to only prefix those parts.
 
 ### Options
 
@@ -55,7 +55,13 @@ See the [supported browser names](https://github.com/postcss/autoprefixer#browse
 
 ```json
 {
-	"browsers": ["last 1 version", "> 10%", "> 5% in US", "ie 8", "ie 7"]
+	"browsers": [
+		"last 1 version",
+		"> 10%",
+		"> 5% in US",
+		"ie 8",
+		"ie 7"
+	]
 }
 ```
 
@@ -70,7 +76,9 @@ Example:
 ```json
 [
 	{
-		"keys": ["alt+super+p"],
+		"keys": [
+			"alt+super+p"
+		],
 		"command": "autoprefixer"
 	}
 ]
@@ -86,7 +94,9 @@ Example:
 {
 	"settings": {
 		"Autoprefixer": {
-			"browsers": ["last 1 version"]
+			"browsers": [
+				"last 1 version"
+			]
 		}
 	}
 }
