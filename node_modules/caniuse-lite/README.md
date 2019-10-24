@@ -95,3 +95,9 @@ the data for your project please contact me here: http://a.deveria.com/contact
 
 [1]: http://caniuse.com/
 [2]: https://github.com/Fyrd/caniuse/issues/1827
+
+## Security contact information
+
+To report a security vulnerability, please use the
+[Tidelift security contact](https://tidelift.com/security).
+Tidelift will coordinate the fix and disclosure.

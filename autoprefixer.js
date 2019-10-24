@@ -6,11 +6,16 @@ var postcssSafeParser = require('postcss-safe-parser');
 var postcssScssParser = require('postcss-scss');
 
 getStdin().then(function (data) {
-	var opts = JSON.parse(process.argv[2]);
+	var options = JSON.parse(process.argv[2]);
 
-	var postcssParser = opts.is_css ? postcssSafeParser : postcssScssParser;
+	if (options.browsers) {
+		options.overrideBrowserslist = options.browsers;
+		delete options.browsers;
+	}
 
-	postcss(autoprefixer(opts)).process(data, {
+	var postcssParser = options.is_css ? postcssSafeParser : postcssScssParser;
+
+	postcss(autoprefixer(options)).process(data, {
 		parser: postcssParser,
 		from: undefined
 	})

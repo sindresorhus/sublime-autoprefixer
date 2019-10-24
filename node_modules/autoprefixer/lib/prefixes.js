@@ -160,7 +160,7 @@ function () {
 
       if (_this.options.flexbox === 'no-2009') {
         add = add.filter(function (i) {
-          return i.indexOf('2009') === -1;
+          return !i.includes('2009');
         });
       }
 
@@ -180,7 +180,7 @@ function () {
 
         if (add.length < all.length) {
           selected.remove[name] = all.filter(function (i) {
-            return add.indexOf(i) === -1;
+            return !add.includes(i);
           });
         }
       } else {
@@ -377,16 +377,16 @@ function () {
               _ref6 = _i6.value;
             }
 
-            var _prefix3 = _ref6;
-            var olds = this.decl(_name).old(_name, _prefix3);
+            var p = _ref6;
+            var olds = this.decl(_name).old(_name, p);
 
             if (_name === 'align-self') {
               var a = add[_name] && add[_name].prefixes;
 
               if (a) {
-                if (_prefix3 === '-webkit- 2009' && a.indexOf('-webkit-') !== -1) {
+                if (p === '-webkit- 2009' && a.includes('-webkit-')) {
                   continue;
-                } else if (_prefix3 === '-webkit-' && a.indexOf('-webkit- 2009') !== -1) {
+                } else if (p === '-webkit-' && a.includes('-webkit- 2009')) {
                   continue;
                 }
               }
