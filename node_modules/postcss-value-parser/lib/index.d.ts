@@ -140,7 +140,7 @@ declare namespace postcssValueParser {
      * @param custom A custom stringifier callback
      * @returns The generated CSS value
      */
-    stringify(nodes: Node[], custom?: CustomStringifierCallback): string;
+    stringify(nodes: Node | Node[], custom?: CustomStringifierCallback): string;
 
     /**
      * Walk a series of nodes, applying a callback

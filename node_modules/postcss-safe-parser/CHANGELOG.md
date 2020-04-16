@@ -1,6 +1,9 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 4.0.2
+* Fix parsing `:;`.
+
 ## 4.0.1
 * Remove development file from npm package.
 
