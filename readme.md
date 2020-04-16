@@ -10,21 +10,19 @@ You shouldn't have to care about vendor prefixes. Now you don't have to!
 
 ---
 
-Adding prefixes manually is a chore. It's also hard to keep track of where and which prefixes are needed. This plugin uses the [Autoprefixer](https://github.com/postcss/autoprefixer) module to prefix properties and values according to the [Can I Use](http://caniuse.com) database. Which means it will only add the necessary prefixes and not bloat your stylesheet. It even lets you specify what browsers you want to target. In addition it will remove existing prefixes which are no longer needed.
+Adding prefixes manually is a chore. It's also hard to keep track of where and which prefixes are needed. This plugin uses the [Autoprefixer](https://github.com/postcss/autoprefixer) module to prefix properties and values according to the [Can I Use](https://caniuse.com) database. Which means it will only add the necessary prefixes and not bloat your stylesheet. It even lets you specify what browsers you want to target. In addition it will remove existing prefixes which are no longer needed.
 
 Works with CSS and SCSS, but not other preprocessors.
-
 
 ## Install
 
 Install `Autoprefixer` with [Package Control](https://packagecontrol.io) and restart Sublime.
 
-**You need to have [Node.js](http://nodejs.org) 8+ installed.**<br>
+**You need to have [Node.js](https://nodejs.org) 8+ installed.**<br>
 Make sure it's in your $PATH by running `node --version` in your command-line.<br>
 On macOS you need to make sure it's in `/usr/local/bin` or symlink it there.
 
 See the Autoprefixer version in use [here](https://github.com/sindresorhus/sublime-autoprefixer/blob/master/node_modules/autoprefixer/package.json#L120).
-
 
 ## Getting started
 
@@ -82,7 +80,7 @@ Example:
 
 ### Project settings
 
-You can override the default and user settings for individual projects. Just add an `"Autoprefixer"` object to the `"settings"` object in the project's `.sublime-project` file containing your [project specific settings](http://www.sublimetext.com/docs/3/projects.html).
+You can override the default and user settings for individual projects. Just add an `"Autoprefixer"` object to the `"settings"` object in the project's `.sublime-project` file containing your [project specific settings](https://www.sublimetext.com/docs/3/projects.html).
 
 Example:
 
@@ -97,8 +95,3 @@ Example:
 	}
 }
 ```
-
-
-## License
-
-MIT © [Sindre Sorhus](https://sindresorhus.com)
