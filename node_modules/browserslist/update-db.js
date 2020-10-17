@@ -1,23 +1,25 @@
 var childProcess = require('child_process')
-var pkgUp = require('pkg-up')
+var escalade = require('escalade/sync')
 var path = require('path')
 var fs = require('fs')
 
 var BrowserslistError = require('./error')
 
 function detectLockfile () {
-  var packagePath = pkgUp.sync()
-  if (!packagePath) {
+  var packageDir = escalade('.', function (dir, names) {
+    return names.indexOf('package.json') !== -1 ? dir : ''
+  })
+
+  if (!packageDir) {
     throw new BrowserslistError(
       'Cannot find package.json. ' +
       'Is it a right project to run npx browserslist --update-db?'
     )
   }
 
-  var rootDir = path.dirname(packagePath)
-  var lockfileNpm = path.join(rootDir, 'package-lock.json')
-  var lockfileYarn = path.join(rootDir, 'yarn.lock')
-  var lockfilePnpm = path.join(rootDir, 'pnpm-lock.yaml')
+  var lockfileNpm = path.join(packageDir, 'package-lock.json')
+  var lockfileYarn = path.join(packageDir, 'yarn.lock')
+  var lockfilePnpm = path.join(packageDir, 'pnpm-lock.yaml')
 
   /* istanbul ignore next */
   if (fs.existsSync(lockfilePnpm)) {
@@ -45,13 +47,13 @@ function getCurrentVersion (lock) {
       return dependencies['caniuse-lite'].version
     }
   } else if (lock.mode === 'yarn') {
-    match = /caniuse-lite@[^:]+:\n\s+version\s+"([^"]+)"/.exec(lock.content)
+    match = /caniuse-lite@[^:]+:\r?\n\s+version\s+"([^"]+)"/.exec(lock.content)
     if (match[1]) return match[1]
   }
   return null
 }
 
-function getLastestInfo () {
+function getLatestInfo () {
   return JSON.parse(
     childProcess.execSync('npm show caniuse-lite --json').toString()
   )
@@ -117,18 +119,29 @@ module.exports = function updateDB (print) {
   lock.content = fs.readFileSync(lock.file).toString()
 
   var current = getCurrentVersion(lock)
-  var latest = getLastestInfo()
+  var latest = getLatestInfo()
 
   if (typeof current === 'string') {
     print('Current version: ' + current + '\n')
   }
   print(
     'New version: ' + latest.version + '\n' +
-    'Updating caniuse-lite…\n'
+    'Removing old caniuse-lite from lock file…\n'
   )
 
   fs.writeFileSync(lock.file, updateLockfile(lock, latest))
-  childProcess.execSync(lock.mode + ' install')
 
-  print('caniuse-lite has been successfully updated')
+  print(
+    'Installing new caniuse-lite version…\n' +
+    '$ ' + lock.mode + ' install\n'
+  )
+  try {
+    childProcess.execSync(lock.mode + ' install')
+  } catch (e) /* istanbul ignore next */ {
+    print(e.stack)
+    print('\nProblem with `' + lock.mode + ' install` call. Run it manually.\n')
+    process.exit(1)
+  }
+
+  print('caniuse-lite has been successfully updated\n')
 }

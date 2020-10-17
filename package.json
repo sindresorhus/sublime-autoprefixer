@@ -1,10 +1,10 @@
 {
 	"private": true,
 	"dependencies": {
-		"autoprefixer": "^9.7.6",
-		"get-stdin": "^7.0.0",
-		"postcss": "^7.0.27",
-		"postcss-safe-parser": "^4.0.2",
-		"postcss-scss": "^2.0.0"
+		"autoprefixer": "^10.0.1",
+		"get-stdin": "^8.0.0",
+		"postcss": "^8.1.1",
+		"postcss-safe-parser": "^5.0.2",
+		"postcss-scss": "^3.0.2"
 	}
 }

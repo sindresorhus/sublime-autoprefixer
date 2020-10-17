@@ -1,52 +1,34 @@
 'use strict';
 const {stdin} = process;
 
-module.exports = () => {
+module.exports = async () => {
 	let result = '';
 
-	return new Promise(resolve => {
-		if (stdin.isTTY) {
-			resolve(result);
-			return;
-		}
+	if (stdin.isTTY) {
+		return result;
+	}
 
-		stdin.setEncoding('utf8');
+	stdin.setEncoding('utf8');
 
-		stdin.on('readable', () => {
-			let chunk;
+	for await (const chunk of stdin) {
+		result += chunk;
+	}
 
-			while ((chunk = stdin.read())) {
-				result += chunk;
-			}
-		});
-
-		stdin.on('end', () => {
-			resolve(result);
-		});
-	});
+	return result;
 };
 
-module.exports.buffer = () => {
+module.exports.buffer = async () => {
 	const result = [];
 	let length = 0;
 
-	return new Promise(resolve => {
-		if (stdin.isTTY) {
-			resolve(Buffer.concat([]));
-			return;
-		}
+	if (stdin.isTTY) {
+		return Buffer.concat([]);
+	}
 
-		stdin.on('readable', () => {
-			let chunk;
+	for await (const chunk of stdin) {
+		result.push(chunk);
+		length += chunk.length;
+	}
 
-			while ((chunk = stdin.read())) {
-				result.push(chunk);
-				length += chunk.length;
-			}
-		});
-
-		stdin.on('end', () => {
-			resolve(Buffer.concat(result, length));
-		});
-	});
+	return Buffer.concat(result, length);
 };
