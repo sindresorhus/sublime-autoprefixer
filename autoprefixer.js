@@ -6,7 +6,9 @@ const autoprefixer = require('autoprefixer');
 const postcssSafeParser = require('postcss-safe-parser');
 const postcssScssParser = require('postcss-scss');
 
-childProcess.spawn('npx', ['browserslist@latest', '--update-db'], {cwd: __dirname, stdio: 'ignore'}).unref();
+const subprocess = childProcess.spawn('npx', ['browserslist@latest', '--update-db'], {cwd: __dirname, stdio: 'ignore'});
+subprocess.unref();
+subprocess.on('error', () => {});
 
 (async () => {
 	const data = await getStdin();
