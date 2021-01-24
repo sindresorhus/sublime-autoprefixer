@@ -22,7 +22,7 @@ Install `Autoprefixer` with [Package Control](https://packagecontrol.io) and res
 Make sure it's in your $PATH by running `node --version` in your command-line.<br>
 On macOS you need to make sure it's in `/usr/local/bin` or symlink it there.
 
-See the Autoprefixer version in use [here](https://github.com/sindresorhus/sublime-autoprefixer/blob/master/node_modules/autoprefixer/package.json#L120).
+See the Autoprefixer version in use [here](https://github.com/sindresorhus/sublime-autoprefixer/blob/main/node_modules/autoprefixer/package.json#L120).
 
 ## Getting started
 
