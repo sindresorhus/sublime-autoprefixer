@@ -14,8 +14,7 @@ if (process.env.NODE_ENV !== 'production') {
       'React Native does not have a built-in secure random generator. ' +
         'If you don’t need unpredictable IDs use `nanoid/non-secure`. ' +
         'For secure IDs, import `react-native-get-random-values` ' +
-        'before Nano ID. If you use Expo, install `expo-random` ' +
-        'and use `nanoid/async`.'
+        'before Nano ID.'
     )
   }
   if (typeof msCrypto !== 'undefined' && typeof crypto === 'undefined') {
@@ -67,8 +66,7 @@ let customRandom = (alphabet, size, getRandom) => {
       while (j--) {
         // Adding `|| ''` refuses a random byte that exceeds the alphabet size.
         id += alphabet[bytes[j] & mask] || ''
-        // `id.length + 1 === size` is a more compact option.
-        if (id.length === +size) return id
+        if (id.length === size) return id
       }
     }
   }
