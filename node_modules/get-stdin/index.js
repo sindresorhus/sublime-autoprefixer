@@ -1,7 +1,6 @@
-'use strict';
 const {stdin} = process;
 
-module.exports = async () => {
+export default async function getStdin() {
 	let result = '';
 
 	if (stdin.isTTY) {
@@ -15,9 +14,9 @@ module.exports = async () => {
 	}
 
 	return result;
-};
+}
 
-module.exports.buffer = async () => {
+getStdin.buffer = async () => {
 	const result = [];
 	let length = 0;
 

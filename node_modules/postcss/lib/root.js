@@ -5,23 +5,13 @@ let Container = require('./container')
 let LazyResult, Processor
 
 class Root extends Container {
-  constructor (defaults) {
+  constructor(defaults) {
     super(defaults)
     this.type = 'root'
     if (!this.nodes) this.nodes = []
   }
 
-  removeChild (child, ignore) {
-    let index = this.index(child)
-
-    if (!ignore && index === 0 && this.nodes.length > 1) {
-      this.nodes[1].raws.before = this.nodes[index].raws.before
-    }
-
-    return super.removeChild(child)
-  }
-
-  normalize (child, sample, type) {
+  normalize(child, sample, type) {
     let nodes = super.normalize(child)
 
     if (sample) {
@@ -41,7 +31,17 @@ class Root extends Container {
     return nodes
   }
 
-  toResult (opts = {}) {
+  removeChild(child, ignore) {
+    let index = this.index(child)
+
+    if (!ignore && index === 0 && this.nodes.length > 1) {
+      this.nodes[1].raws.before = this.nodes[index].raws.before
+    }
+
+    return super.removeChild(child)
+  }
+
+  toResult(opts = {}) {
     let lazy = new LazyResult(new Processor(), this, opts)
     return lazy.stringify()
   }
@@ -57,3 +57,5 @@ Root.registerProcessor = dependant => {
 
 module.exports = Root
 Root.default = Root
+
+Container.registerRoot(Root)

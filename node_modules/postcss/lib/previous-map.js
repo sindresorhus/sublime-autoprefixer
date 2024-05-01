@@ -1,20 +1,20 @@
 'use strict'
 
+let { SourceMapConsumer, SourceMapGenerator } = require('source-map-js')
 let { existsSync, readFileSync } = require('fs')
 let { dirname, join } = require('path')
-let mozilla = require('source-map')
 
-function fromBase64 (str) {
+function fromBase64(str) {
   if (Buffer) {
     return Buffer.from(str, 'base64').toString()
   } else {
-    // istanbul ignore next
+    /* c8 ignore next 2 */
     return window.atob(str)
   }
 }
 
 class PreviousMap {
-  constructor (css, opts) {
+  constructor(css, opts) {
     if (opts.map === false) return
     this.loadAnnotation(css)
     this.inline = this.startWith(this.annotation, 'data:')
@@ -28,45 +28,14 @@ class PreviousMap {
     if (text) this.text = text
   }
 
-  consumer () {
+  consumer() {
     if (!this.consumerCache) {
-      this.consumerCache = new mozilla.SourceMapConsumer(this.text)
+      this.consumerCache = new SourceMapConsumer(this.text)
     }
     return this.consumerCache
   }
 
-  withContent () {
-    return !!(
-      this.consumer().sourcesContent &&
-      this.consumer().sourcesContent.length > 0
-    )
-  }
-
-  startWith (string, start) {
-    if (!string) return false
-    return string.substr(0, start.length) === start
-  }
-
-  getAnnotationURL (sourceMapString) {
-    return sourceMapString
-      .match(/\/\*\s*# sourceMappingURL=(.*)\s*\*\//)[1]
-      .trim()
-  }
-
-  loadAnnotation (css) {
-    let annotations = css.match(/\/\*\s*# sourceMappingURL=.*\s*\*\//gm)
-
-    if (annotations && annotations.length > 0) {
-      // Locate the last sourceMappingURL to avoid picking up
-      // sourceMappingURLs from comments, strings, etc.
-      let lastAnnotation = annotations[annotations.length - 1]
-      if (lastAnnotation) {
-        this.annotation = this.getAnnotationURL(lastAnnotation)
-      }
-    }
-  }
-
-  decodeInline (text) {
+  decodeInline(text) {
     let baseCharsetUri = /^data:application\/json;charset=utf-?8;base64,/
     let baseUri = /^data:application\/json;base64,/
     let charsetUri = /^data:application\/json;charset=utf-?8,/
@@ -84,7 +53,34 @@ class PreviousMap {
     throw new Error('Unsupported source map encoding ' + encoding)
   }
 
-  loadFile (path) {
+  getAnnotationURL(sourceMapString) {
+    return sourceMapString.replace(/^\/\*\s*# sourceMappingURL=/, '').trim()
+  }
+
+  isMap(map) {
+    if (typeof map !== 'object') return false
+    return (
+      typeof map.mappings === 'string' ||
+      typeof map._mappings === 'string' ||
+      Array.isArray(map.sections)
+    )
+  }
+
+  loadAnnotation(css) {
+    let comments = css.match(/\/\*\s*# sourceMappingURL=/gm)
+    if (!comments) return
+
+    // sourceMappingURLs from comments, strings, etc.
+    let start = css.lastIndexOf(comments.pop())
+    let end = css.indexOf('*/', start)
+
+    if (start > -1 && end > -1) {
+      // Locate the last sourceMappingURL to avoid pickin
+      this.annotation = this.getAnnotationURL(css.substring(start, end))
+    }
+  }
+
+  loadFile(path) {
     this.root = dirname(path)
     if (existsSync(path)) {
       this.mapFile = path
@@ -92,7 +88,7 @@ class PreviousMap {
     }
   }
 
-  loadMap (file, prev) {
+  loadMap(file, prev) {
     if (prev === false) return false
 
     if (prev) {
@@ -109,9 +105,9 @@ class PreviousMap {
           }
           return map
         }
-      } else if (prev instanceof mozilla.SourceMapConsumer) {
-        return mozilla.SourceMapGenerator.fromSourceMap(prev).toString()
-      } else if (prev instanceof mozilla.SourceMapGenerator) {
+      } else if (prev instanceof SourceMapConsumer) {
+        return SourceMapGenerator.fromSourceMap(prev).toString()
+      } else if (prev instanceof SourceMapGenerator) {
         return prev.toString()
       } else if (this.isMap(prev)) {
         return JSON.stringify(prev)
@@ -129,12 +125,15 @@ class PreviousMap {
     }
   }
 
-  isMap (map) {
-    if (typeof map !== 'object') return false
-    return (
-      typeof map.mappings === 'string' ||
-      typeof map._mappings === 'string' ||
-      Array.isArray(map.sections)
+  startWith(string, start) {
+    if (!string) return false
+    return string.substr(0, start.length) === start
+  }
+
+  withContent() {
+    return !!(
+      this.consumer().sourcesContent &&
+      this.consumer().sourcesContent.length > 0
     )
   }
 }

@@ -1,34 +1,34 @@
 'use strict'
 
-let { cyan, gray, green, yellow, magenta } = require('colorette')
+let pico = require('picocolors')
 
 let tokenizer = require('./tokenize')
 
 let Input
 
-function registerInput (dependant) {
+function registerInput(dependant) {
   Input = dependant
 }
 
 const HIGHLIGHT_THEME = {
-  'brackets': cyan,
-  'at-word': cyan,
-  'comment': gray,
-  'string': green,
-  'class': yellow,
-  'hash': magenta,
-  'call': cyan,
-  '(': cyan,
-  ')': cyan,
-  '{': yellow,
-  '}': yellow,
-  '[': yellow,
-  ']': yellow,
-  ':': yellow,
-  ';': yellow
+  ';': pico.yellow,
+  ':': pico.yellow,
+  '(': pico.cyan,
+  ')': pico.cyan,
+  '[': pico.yellow,
+  ']': pico.yellow,
+  '{': pico.yellow,
+  '}': pico.yellow,
+  'at-word': pico.cyan,
+  'brackets': pico.cyan,
+  'call': pico.cyan,
+  'class': pico.yellow,
+  'comment': pico.gray,
+  'hash': pico.magenta,
+  'string': pico.green
 }
 
-function getTokenType ([type, value], processor) {
+function getTokenType([type, value], processor) {
   if (type === 'word') {
     if (value[0] === '.') {
       return 'class'
@@ -47,7 +47,7 @@ function getTokenType ([type, value], processor) {
   return type
 }
 
-function terminalHighlight (css) {
+function terminalHighlight(css) {
   let processor = tokenizer(new Input(css), { ignoreErrors: true })
   let result = ''
   while (!processor.endOfFile()) {

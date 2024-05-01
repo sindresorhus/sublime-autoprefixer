@@ -1,5 +1,3 @@
-/// <reference types="node"/>
-
 declare const getStdin: {
 	/**
 	Get [`stdin`](https://nodejs.org/api/process.html#process_process_stdin) as a `string`.
@@ -9,12 +7,10 @@ declare const getStdin: {
 	@example
 	```
 	// example.ts
-	import getStdin = require('get-stdin');
+	import getStdin from 'get-stdin';
 
-	(async () => {
-		console.log(await getStdin());
-		//=> 'unicorns'
-	})
+	console.log(await getStdin());
+	//=> 'unicorns'
 
 	// $ echo unicorns | ts-node example.ts
 	// unicorns
@@ -30,4 +26,4 @@ declare const getStdin: {
 	buffer(): Promise<Buffer>;
 };
 
-export = getStdin;
+export default getStdin;

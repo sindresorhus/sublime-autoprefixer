@@ -22,10 +22,10 @@ const AT = '@'.charCodeAt(0)
 
 const RE_AT_END = /[\t\n\f\r "#'()/;[\\\]{}]/g
 const RE_WORD_END = /[\t\n\f\r !"#'():;@[\\\]{}]|\/(?=\*)/g
-const RE_BAD_BRACKET = /.[\n"'(/\\]/
+const RE_BAD_BRACKET = /.[\r\n"'(/\\]/
 const RE_HEX_ESCAPE = /[\da-f]/i
 
-module.exports = function tokenizer (input, options = {}) {
+module.exports = function tokenizer(input, options = {}) {
   let css = input.css.valueOf()
   let ignore = options.ignoreErrors
 
@@ -37,19 +37,19 @@ module.exports = function tokenizer (input, options = {}) {
   let buffer = []
   let returned = []
 
-  function position () {
+  function position() {
     return pos
   }
 
-  function unclosed (what) {
+  function unclosed(what) {
     throw input.error('Unclosed ' + what, pos)
   }
 
-  function endOfFile () {
+  function endOfFile() {
     return returned.length === 0 && pos >= length
   }
 
-  function nextToken (opts) {
+  function nextToken(opts) {
     if (returned.length) return returned.pop()
     if (pos >= length) return
 
@@ -253,14 +253,14 @@ module.exports = function tokenizer (input, options = {}) {
     return currentToken
   }
 
-  function back (token) {
+  function back(token) {
     returned.push(token)
   }
 
   return {
     back,
-    nextToken,
     endOfFile,
+    nextToken,
     position
   }
 }

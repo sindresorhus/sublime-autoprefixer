@@ -8,6 +8,7 @@ export const plugin = postcss.plugin
 export const parse = postcss.parse
 export const list = postcss.list
 
+export const document = postcss.document
 export const comment = postcss.comment
 export const atRule = postcss.atRule
 export const rule = postcss.rule
@@ -17,6 +18,8 @@ export const root = postcss.root
 export const CssSyntaxError = postcss.CssSyntaxError
 export const Declaration = postcss.Declaration
 export const Container = postcss.Container
+export const Processor = postcss.Processor
+export const Document = postcss.Document
 export const Comment = postcss.Comment
 export const Warning = postcss.Warning
 export const AtRule = postcss.AtRule

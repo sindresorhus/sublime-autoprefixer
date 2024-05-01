@@ -1,6 +1,11 @@
-import { SourceMapConsumer } from 'source-map'
+import { SourceMapConsumer } from 'source-map-js'
 
 import { ProcessOptions } from './postcss.js'
+
+declare namespace PreviousMap {
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
+  export { PreviousMap_ as default }
+}
 
 /**
  * Source map information from input CSS.
@@ -14,26 +19,11 @@ import { ProcessOptions } from './postcss.js'
  * root.input.map //=> PreviousMap
  * ```
  */
-export default class PreviousMap {
-  /**
-   * Was source map inlined by data-uri to input CSS.
-   */
-  inline: boolean
-
+declare class PreviousMap_ {
   /**
    * `sourceMappingURL` content.
    */
   annotation?: string
-
-  /**
-   * Source map file content.
-   */
-  text?: string
-
-  /**
-   * The directory with source map file, if source map is in separated file.
-   */
-  root?: string
 
   /**
    * The CSS source identifier. Contains `Input#file` if the user
@@ -42,15 +32,30 @@ export default class PreviousMap {
   file?: string
 
   /**
+   * Was source map inlined by data-uri to input CSS.
+   */
+  inline: boolean
+
+  /**
    * Path to source map file.
    */
   mapFile?: string
 
   /**
+   * The directory with source map file, if source map is in separated file.
+   */
+  root?: string
+
+  /**
+   * Source map file content.
+   */
+  text?: string
+
+  /**
    * @param css  Input CSS source.
    * @param opts Process options.
    */
-  constructor (css: string, opts?: ProcessOptions)
+  constructor(css: string, opts?: ProcessOptions)
 
   /**
    * Create a instance of `SourceMapGenerator` class
@@ -61,12 +66,16 @@ export default class PreviousMap {
    *
    * @return Object with source map information.
    */
-  consumer (): SourceMapConsumer
+  consumer(): SourceMapConsumer
 
   /**
    * Does source map contains `sourcesContent` with input source text.
    *
    * @return Is `sourcesContent` present.
    */
-  withContent (): boolean
+  withContent(): boolean
 }
+
+declare class PreviousMap extends PreviousMap_ {}
+
+export = PreviousMap

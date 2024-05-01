@@ -1,11 +1,11 @@
 'use strict'
 
-let { red, bold, gray, options: colorette } = require('colorette')
+let pico = require('picocolors')
 
 let terminalHighlight = require('./terminal-highlight')
 
 class CssSyntaxError extends Error {
-  constructor (message, line, column, source, file, plugin) {
+  constructor(message, line, column, source, file, plugin) {
     super(message)
     this.name = 'CssSyntaxError'
     this.reason = message
@@ -20,8 +20,15 @@ class CssSyntaxError extends Error {
       this.plugin = plugin
     }
     if (typeof line !== 'undefined' && typeof column !== 'undefined') {
-      this.line = line
-      this.column = column
+      if (typeof line === 'number') {
+        this.line = line
+        this.column = column
+      } else {
+        this.line = line.line
+        this.column = line.column
+        this.endLine = column.line
+        this.endColumn = column.column
+      }
     }
 
     this.setMessage()
@@ -31,7 +38,7 @@ class CssSyntaxError extends Error {
     }
   }
 
-  setMessage () {
+  setMessage() {
     this.message = this.plugin ? this.plugin + ': ' : ''
     this.message += this.file ? this.file : '<css input>'
     if (typeof this.line !== 'undefined') {
@@ -40,11 +47,11 @@ class CssSyntaxError extends Error {
     this.message += ': ' + this.reason
   }
 
-  showSourceCode (color) {
+  showSourceCode(color) {
     if (!this.source) return ''
 
     let css = this.source
-    if (color == null) color = colorette.enabled
+    if (color == null) color = pico.isColorSupported
     if (terminalHighlight) {
       if (color) css = terminalHighlight(css)
     }
@@ -57,6 +64,7 @@ class CssSyntaxError extends Error {
 
     let mark, aside
     if (color) {
+      let { bold, gray, red } = pico.createColors(true)
       mark = text => bold(red(text))
       aside = text => gray(text)
     } else {
@@ -79,7 +87,7 @@ class CssSyntaxError extends Error {
       .join('\n')
   }
 
-  toString () {
+  toString() {
     let code = this.showSourceCode()
     if (code) {
       code = '\n\n' + code + '\n'

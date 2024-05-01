@@ -1,51 +1,56 @@
 'use strict'
 
+let { isClean, my } = require('./symbols')
 let MapGenerator = require('./map-generator')
-let { isClean } = require('./symbols')
 let stringify = require('./stringify')
+let Container = require('./container')
+let Document = require('./document')
 let warnOnce = require('./warn-once')
 let Result = require('./result')
 let parse = require('./parse')
 let Root = require('./root')
 
 const TYPE_TO_CLASS_NAME = {
-  root: 'Root',
   atrule: 'AtRule',
-  rule: 'Rule',
+  comment: 'Comment',
   decl: 'Declaration',
-  comment: 'Comment'
+  document: 'Document',
+  root: 'Root',
+  rule: 'Rule'
 }
 
 const PLUGIN_PROPS = {
+  AtRule: true,
+  AtRuleExit: true,
+  Comment: true,
+  CommentExit: true,
+  Declaration: true,
+  DeclarationExit: true,
+  Document: true,
+  DocumentExit: true,
+  Once: true,
+  OnceExit: true,
   postcssPlugin: true,
   prepare: true,
-  Once: true,
   Root: true,
-  Declaration: true,
-  Rule: true,
-  AtRule: true,
-  Comment: true,
-  DeclarationExit: true,
-  RuleExit: true,
-  AtRuleExit: true,
-  CommentExit: true,
   RootExit: true,
-  OnceExit: true
+  Rule: true,
+  RuleExit: true
 }
 
 const NOT_VISITORS = {
+  Once: true,
   postcssPlugin: true,
-  prepare: true,
-  Once: true
+  prepare: true
 }
 
 const CHILDREN = 0
 
-function isPromise (obj) {
+function isPromise(obj) {
   return typeof obj === 'object' && typeof obj.then === 'function'
 }
 
-function getEvents (node) {
+function getEvents(node) {
   let key = false
   let type = TYPE_TO_CLASS_NAME[node.type]
   if (node.type === 'decl') {
@@ -71,25 +76,27 @@ function getEvents (node) {
   }
 }
 
-function toStack (node) {
+function toStack(node) {
   let events
-  if (node.type === 'root') {
+  if (node.type === 'document') {
+    events = ['Document', CHILDREN, 'DocumentExit']
+  } else if (node.type === 'root') {
     events = ['Root', CHILDREN, 'RootExit']
   } else {
     events = getEvents(node)
   }
 
   return {
-    node,
-    events,
     eventIndex: 0,
-    visitors: [],
+    events,
+    iterator: 0,
+    node,
     visitorIndex: 0,
-    iterator: 0
+    visitors: []
   }
 }
 
-function cleanMarks (node) {
+function cleanMarks(node) {
   node[isClean] = false
   if (node.nodes) node.nodes.forEach(i => cleanMarks(i))
   return node
@@ -98,12 +105,16 @@ function cleanMarks (node) {
 let postcss = {}
 
 class LazyResult {
-  constructor (processor, css, opts) {
+  constructor(processor, css, opts) {
     this.stringified = false
     this.processed = false
 
     let root
-    if (typeof css === 'object' && css !== null && css.type === 'root') {
+    if (
+      typeof css === 'object' &&
+      css !== null &&
+      (css.type === 'root' || css.type === 'document')
+    ) {
       root = cleanMarks(css)
     } else if (css instanceof LazyResult || css instanceof Result) {
       root = cleanMarks(css.root)
@@ -124,10 +135,15 @@ class LazyResult {
         this.processed = true
         this.error = error
       }
+
+      if (root && !root[my]) {
+        /* c8 ignore next 2 */
+        Container.rebuild(root)
+      }
     }
 
     this.result = new Result(processor, root, opts)
-    this.helpers = { ...postcss, result: this.result, postcss }
+    this.helpers = { ...postcss, postcss, result: this.result }
     this.plugins = this.processor.plugins.map(plugin => {
       if (typeof plugin === 'object' && plugin.prepare) {
         return { ...plugin, ...plugin.prepare(this.result) }
@@ -137,68 +153,7 @@ class LazyResult {
     })
   }
 
-  get [Symbol.toStringTag] () {
-    return 'LazyResult'
-  }
-
-  get processor () {
-    return this.result.processor
-  }
-
-  get opts () {
-    return this.result.opts
-  }
-
-  get css () {
-    return this.stringify().css
-  }
-
-  get content () {
-    return this.stringify().content
-  }
-
-  get map () {
-    return this.stringify().map
-  }
-
-  get root () {
-    return this.sync().root
-  }
-
-  get messages () {
-    return this.sync().messages
-  }
-
-  warnings () {
-    return this.sync().warnings()
-  }
-
-  toString () {
-    return this.css
-  }
-
-  then (onFulfilled, onRejected) {
-    if (process.env.NODE_ENV !== 'production') {
-      if (!('from' in this.opts)) {
-        warnOnce(
-          'Without `from` option PostCSS could generate wrong source map ' +
-            'and will not find Browserslist config. Set it to CSS file path ' +
-            'or to `undefined` to prevent this warning.'
-        )
-      }
-    }
-    return this.async().then(onFulfilled, onRejected)
-  }
-
-  catch (onRejected) {
-    return this.async().catch(onRejected)
-  }
-
-  finally (onFinally) {
-    return this.async().then(onFinally, onFinally)
-  }
-
-  async () {
+  async() {
     if (this.error) return Promise.reject(this.error)
     if (this.processed) return Promise.resolve(this.result)
     if (!this.processing) {
@@ -207,111 +162,19 @@ class LazyResult {
     return this.processing
   }
 
-  sync () {
-    if (this.error) throw this.error
-    if (this.processed) return this.result
-    this.processed = true
-
-    if (this.processing) {
-      throw this.getAsyncError()
-    }
-
-    for (let plugin of this.plugins) {
-      let promise = this.runOnRoot(plugin)
-      if (isPromise(promise)) {
-        throw this.getAsyncError()
-      }
-    }
-
-    this.prepareVisitors()
-    if (this.hasListener) {
-      let root = this.result.root
-      while (!root[isClean]) {
-        root[isClean] = true
-        this.walkSync(root)
-      }
-      if (this.listeners.OnceExit) {
-        this.visitSync(this.listeners.OnceExit, root)
-      }
-    }
-
-    return this.result
+  catch(onRejected) {
+    return this.async().catch(onRejected)
   }
 
-  stringify () {
-    if (this.error) throw this.error
-    if (this.stringified) return this.result
-    this.stringified = true
-
-    this.sync()
-
-    let opts = this.result.opts
-    let str = stringify
-    if (opts.syntax) str = opts.syntax.stringify
-    if (opts.stringifier) str = opts.stringifier
-    if (str.stringify) str = str.stringify
-
-    let map = new MapGenerator(str, this.result.root, this.result.opts)
-    let data = map.generate()
-    this.result.css = data[0]
-    this.result.map = data[1]
-
-    return this.result
+  finally(onFinally) {
+    return this.async().then(onFinally, onFinally)
   }
 
-  walkSync (node) {
-    node[isClean] = true
-    let events = getEvents(node)
-    for (let event of events) {
-      if (event === CHILDREN) {
-        if (node.nodes) {
-          node.each(child => {
-            if (!child[isClean]) this.walkSync(child)
-          })
-        }
-      } else {
-        let visitors = this.listeners[event]
-        if (visitors) {
-          if (this.visitSync(visitors, node.toProxy())) return
-        }
-      }
-    }
-  }
-
-  visitSync (visitors, node) {
-    for (let [plugin, visitor] of visitors) {
-      this.result.lastPlugin = plugin
-      let promise
-      try {
-        promise = visitor(node, this.helpers)
-      } catch (e) {
-        throw this.handleError(e, node.proxyOf)
-      }
-      if (node.type !== 'root' && !node.parent) return true
-      if (isPromise(promise)) {
-        throw this.getAsyncError()
-      }
-    }
-  }
-
-  runOnRoot (plugin) {
-    this.result.lastPlugin = plugin
-    try {
-      if (typeof plugin === 'object' && plugin.Once) {
-        return plugin.Once(this.result.root, this.helpers)
-      } else if (typeof plugin === 'function') {
-        return plugin(this.result.root, this.result)
-      }
-    } catch (error) {
-      throw this.handleError(error)
-    }
-  }
-
-  getAsyncError () {
+  getAsyncError() {
     throw new Error('Use process(css).then(cb) to work with async plugins')
   }
 
-  handleError (error, node) {
+  handleError(error, node) {
     let plugin = this.result.lastPlugin
     try {
       if (node) node.addToError(error)
@@ -328,6 +191,7 @@ class LazyResult {
           let b = runtimeVer.split('.')
 
           if (a[0] !== b[0] || parseInt(a[1]) > parseInt(b[1])) {
+            // eslint-disable-next-line no-console
             console.error(
               'Unknown error from PostCSS plugin. Your current PostCSS ' +
                 'version is ' +
@@ -342,62 +206,14 @@ class LazyResult {
         }
       }
     } catch (err) {
-      // istanbul ignore next
+      /* c8 ignore next 3 */
+      // eslint-disable-next-line no-console
       if (console && console.error) console.error(err)
     }
     return error
   }
 
-  async runAsync () {
-    this.plugin = 0
-    for (let i = 0; i < this.plugins.length; i++) {
-      let plugin = this.plugins[i]
-      let promise = this.runOnRoot(plugin)
-      if (isPromise(promise)) {
-        try {
-          await promise
-        } catch (error) {
-          throw this.handleError(error)
-        }
-      }
-    }
-
-    this.prepareVisitors()
-    if (this.hasListener) {
-      let root = this.result.root
-      while (!root[isClean]) {
-        root[isClean] = true
-        let stack = [toStack(root)]
-        while (stack.length > 0) {
-          let promise = this.visitTick(stack)
-          if (isPromise(promise)) {
-            try {
-              await promise
-            } catch (e) {
-              let node = stack[stack.length - 1].node
-              throw this.handleError(e, node)
-            }
-          }
-        }
-      }
-
-      if (this.listeners.OnceExit) {
-        for (let [plugin, visitor] of this.listeners.OnceExit) {
-          this.result.lastPlugin = plugin
-          try {
-            await visitor(root, this.helpers)
-          } catch (e) {
-            throw this.handleError(e)
-          }
-        }
-      }
-    }
-
-    this.processed = true
-    return this.stringify()
-  }
-
-  prepareVisitors () {
+  prepareVisitors() {
     this.listeners = {}
     let add = (plugin, type, cb) => {
       if (!this.listeners[type]) this.listeners[type] = []
@@ -435,11 +251,186 @@ class LazyResult {
     this.hasListener = Object.keys(this.listeners).length > 0
   }
 
-  visitTick (stack) {
+  async runAsync() {
+    this.plugin = 0
+    for (let i = 0; i < this.plugins.length; i++) {
+      let plugin = this.plugins[i]
+      let promise = this.runOnRoot(plugin)
+      if (isPromise(promise)) {
+        try {
+          await promise
+        } catch (error) {
+          throw this.handleError(error)
+        }
+      }
+    }
+
+    this.prepareVisitors()
+    if (this.hasListener) {
+      let root = this.result.root
+      while (!root[isClean]) {
+        root[isClean] = true
+        let stack = [toStack(root)]
+        while (stack.length > 0) {
+          let promise = this.visitTick(stack)
+          if (isPromise(promise)) {
+            try {
+              await promise
+            } catch (e) {
+              let node = stack[stack.length - 1].node
+              throw this.handleError(e, node)
+            }
+          }
+        }
+      }
+
+      if (this.listeners.OnceExit) {
+        for (let [plugin, visitor] of this.listeners.OnceExit) {
+          this.result.lastPlugin = plugin
+          try {
+            if (root.type === 'document') {
+              let roots = root.nodes.map(subRoot =>
+                visitor(subRoot, this.helpers)
+              )
+
+              await Promise.all(roots)
+            } else {
+              await visitor(root, this.helpers)
+            }
+          } catch (e) {
+            throw this.handleError(e)
+          }
+        }
+      }
+    }
+
+    this.processed = true
+    return this.stringify()
+  }
+
+  runOnRoot(plugin) {
+    this.result.lastPlugin = plugin
+    try {
+      if (typeof plugin === 'object' && plugin.Once) {
+        if (this.result.root.type === 'document') {
+          let roots = this.result.root.nodes.map(root =>
+            plugin.Once(root, this.helpers)
+          )
+
+          if (isPromise(roots[0])) {
+            return Promise.all(roots)
+          }
+
+          return roots
+        }
+
+        return plugin.Once(this.result.root, this.helpers)
+      } else if (typeof plugin === 'function') {
+        return plugin(this.result.root, this.result)
+      }
+    } catch (error) {
+      throw this.handleError(error)
+    }
+  }
+
+  stringify() {
+    if (this.error) throw this.error
+    if (this.stringified) return this.result
+    this.stringified = true
+
+    this.sync()
+
+    let opts = this.result.opts
+    let str = stringify
+    if (opts.syntax) str = opts.syntax.stringify
+    if (opts.stringifier) str = opts.stringifier
+    if (str.stringify) str = str.stringify
+
+    let map = new MapGenerator(str, this.result.root, this.result.opts)
+    let data = map.generate()
+    this.result.css = data[0]
+    this.result.map = data[1]
+
+    return this.result
+  }
+
+  sync() {
+    if (this.error) throw this.error
+    if (this.processed) return this.result
+    this.processed = true
+
+    if (this.processing) {
+      throw this.getAsyncError()
+    }
+
+    for (let plugin of this.plugins) {
+      let promise = this.runOnRoot(plugin)
+      if (isPromise(promise)) {
+        throw this.getAsyncError()
+      }
+    }
+
+    this.prepareVisitors()
+    if (this.hasListener) {
+      let root = this.result.root
+      while (!root[isClean]) {
+        root[isClean] = true
+        this.walkSync(root)
+      }
+      if (this.listeners.OnceExit) {
+        if (root.type === 'document') {
+          for (let subRoot of root.nodes) {
+            this.visitSync(this.listeners.OnceExit, subRoot)
+          }
+        } else {
+          this.visitSync(this.listeners.OnceExit, root)
+        }
+      }
+    }
+
+    return this.result
+  }
+
+  then(onFulfilled, onRejected) {
+    if (process.env.NODE_ENV !== 'production') {
+      if (!('from' in this.opts)) {
+        warnOnce(
+          'Without `from` option PostCSS could generate wrong source map ' +
+            'and will not find Browserslist config. Set it to CSS file path ' +
+            'or to `undefined` to prevent this warning.'
+        )
+      }
+    }
+    return this.async().then(onFulfilled, onRejected)
+  }
+
+  toString() {
+    return this.css
+  }
+
+  visitSync(visitors, node) {
+    for (let [plugin, visitor] of visitors) {
+      this.result.lastPlugin = plugin
+      let promise
+      try {
+        promise = visitor(node, this.helpers)
+      } catch (e) {
+        throw this.handleError(e, node.proxyOf)
+      }
+      if (node.type !== 'root' && node.type !== 'document' && !node.parent) {
+        return true
+      }
+      if (isPromise(promise)) {
+        throw this.getAsyncError()
+      }
+    }
+  }
+
+  visitTick(stack) {
     let visit = stack[stack.length - 1]
     let { node, visitors } = visit
 
-    if (node.type !== 'root' && !node.parent) {
+    if (node.type !== 'root' && node.type !== 'document' && !node.parent) {
       stack.pop()
       return
     }
@@ -491,6 +482,61 @@ class LazyResult {
     }
     stack.pop()
   }
+
+  walkSync(node) {
+    node[isClean] = true
+    let events = getEvents(node)
+    for (let event of events) {
+      if (event === CHILDREN) {
+        if (node.nodes) {
+          node.each(child => {
+            if (!child[isClean]) this.walkSync(child)
+          })
+        }
+      } else {
+        let visitors = this.listeners[event]
+        if (visitors) {
+          if (this.visitSync(visitors, node.toProxy())) return
+        }
+      }
+    }
+  }
+
+  warnings() {
+    return this.sync().warnings()
+  }
+
+  get content() {
+    return this.stringify().content
+  }
+
+  get css() {
+    return this.stringify().css
+  }
+
+  get map() {
+    return this.stringify().map
+  }
+
+  get messages() {
+    return this.sync().messages
+  }
+
+  get opts() {
+    return this.result.opts
+  }
+
+  get processor() {
+    return this.result.processor
+  }
+
+  get root() {
+    return this.sync().root
+  }
+
+  get [Symbol.toStringTag]() {
+    return 'LazyResult'
+  }
 }
 
 LazyResult.registerPostcss = dependant => {
@@ -501,3 +547,4 @@ module.exports = LazyResult
 LazyResult.default = LazyResult
 
 Root.registerLazyResult(LazyResult)
+Document.registerLazyResult(LazyResult)

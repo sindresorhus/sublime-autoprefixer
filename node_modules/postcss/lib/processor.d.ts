@@ -1,25 +1,42 @@
+import Document from './document.js'
+import LazyResult from './lazy-result.js'
+import NoWorkResult from './no-work-result.js'
 import {
   AcceptedPlugin,
   Plugin,
   ProcessOptions,
-  Transformer,
-  TransformCallback
+  TransformCallback,
+  Transformer
 } from './postcss.js'
-import LazyResult from './lazy-result.js'
 import Result from './result.js'
 import Root from './root.js'
+
+declare namespace Processor {
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
+  export { Processor_ as default }
+}
 
 /**
  * Contains plugins to process CSS. Create one `Processor` instance,
  * initialize its plugins, and then use that instance on numerous CSS files.
  *
  * ```js
- * const processor = postcss([autoprefixer, precss])
+ * const processor = postcss([autoprefixer, postcssNested])
  * processor.process(css1).then(result => console.log(result.css))
  * processor.process(css2).then(result => console.log(result.css))
  * ```
  */
-export default class Processor {
+declare class Processor_ {
+  /**
+   * Plugins added to this processor.
+   *
+   * ```js
+   * const processor = postcss([autoprefixer, postcssNested])
+   * processor.plugins.length //=> 2
+   * ```
+   */
+  plugins: (Plugin | TransformCallback | Transformer)[]
+
   /**
    * Current PostCSS version.
    *
@@ -32,48 +49,9 @@ export default class Processor {
   version: string
 
   /**
-   * Plugins added to this processor.
-   *
-   * ```js
-   * const processor = postcss([autoprefixer, precss])
-   * processor.plugins.length //=> 2
-   * ```
-   */
-  plugins: (Plugin | Transformer | TransformCallback)[]
-
-  /**
    * @param plugins PostCSS plugins
    */
-  constructor (plugins?: AcceptedPlugin[])
-
-  /**
-   * Adds a plugin to be used as a CSS processor.
-   *
-   * PostCSS plugin can be in 4 formats:
-   * * A plugin in `Plugin` format.
-   * * A plugin creator function with `pluginCreator.postcss = true`.
-   *   PostCSS will call this function without argument to get plugin.
-   * * A function. PostCSS will pass the function a @{link Root}
-   *   as the first argument and current `Result` instance
-   *   as the second.
-   * * Another `Processor` instance. PostCSS will copy plugins
-   *   from that instance into this one.
-   *
-   * Plugins can also be added by passing them as arguments when creating
-   * a `postcss` instance (see [`postcss(plugins)`]).
-   *
-   * Asynchronous plugins should return a `Promise` instance.
-   *
-   * ```js
-   * const processor = postcss()
-   *   .use(autoprefixer)
-   *   .use(precss)
-   * ```
-   *
-   * @param plugin PostCSS plugin or `Processor` with plugins.
-   * @return {Processes} Current processor to make methods chain.
-   */
-  use (plugin: AcceptedPlugin): this
+  constructor(plugins?: AcceptedPlugin[])
 
   /**
    * Parses source CSS and returns a `LazyResult` Promise proxy.
@@ -89,13 +67,49 @@ export default class Processor {
    * ```
    *
    * @param css String with input CSS or any object with a `toString()` method,
-   *            like a Buffer. Optionally, senda `Result` instance
+   *            like a Buffer. Optionally, send a `Result` instance
    *            and the processor will take the `Root` from it.
    * @param opts Options.
    * @return Promise proxy.
    */
-  process (
-    css: string | { toString(): string } | Result | LazyResult | Root,
-    options?: ProcessOptions
-  ): LazyResult
+  process(
+    css: { toString(): string } | LazyResult | Result | Root | string
+  ): LazyResult | NoWorkResult
+  process<RootNode extends Document | Root = Root>(
+    css: { toString(): string } | LazyResult | Result | Root | string,
+    options: ProcessOptions<RootNode>
+  ): LazyResult<RootNode>
+
+  /**
+   * Adds a plugin to be used as a CSS processor.
+   *
+   * PostCSS plugin can be in 4 formats:
+   * * A plugin in `Plugin` format.
+   * * A plugin creator function with `pluginCreator.postcss = true`.
+   *   PostCSS will call this function without argument to get plugin.
+   * * A function. PostCSS will pass the function a {@link Root}
+   *   as the first argument and current `Result` instance
+   *   as the second.
+   * * Another `Processor` instance. PostCSS will copy plugins
+   *   from that instance into this one.
+   *
+   * Plugins can also be added by passing them as arguments when creating
+   * a `postcss` instance (see [`postcss(plugins)`]).
+   *
+   * Asynchronous plugins should return a `Promise` instance.
+   *
+   * ```js
+   * const processor = postcss()
+   *   .use(autoprefixer)
+   *   .use(postcssNested)
+   * ```
+   *
+   * @param plugin PostCSS plugin or `Processor` with plugins.
+   * @return Current processor to make methods chain.
+   */
+  use(plugin: AcceptedPlugin): this
 }
+
+declare class Processor extends Processor_ {}
+
+export = Processor

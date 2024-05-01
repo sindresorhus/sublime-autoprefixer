@@ -18,7 +18,7 @@ Works with CSS and SCSS, but not other preprocessors.
 
 Install `Autoprefixer` with [Package Control](https://packagecontrol.io) and restart Sublime.
 
-**You need to have [Node.js](https://nodejs.org) 10+ installed.**<br>
+**You need to have [Node.js](https://nodejs.org) 20+ installed.**<br>
 Make sure it's in your $PATH by running `node --version` in your command-line.<br>
 On macOS you need to make sure it's in `/usr/local/bin` or symlink it there.
 
@@ -30,7 +30,7 @@ In a CSS file, open the Command Palette *(<kbd>Command</kbd> <kbd>Shift</kbd> <k
 
 ### Options
 
-*(Preferences → Package Settings → Autoprefixer)*
+*(Settings → Package Settings → Autoprefixer)*
 
 You can specify which browsers you need to support using an array of rules.
 
@@ -63,7 +63,7 @@ This will add the needed prefixes for the last version of each browser, all brow
 
 ### Keyboard shortcut
 
-You can also set up a keyboard shortcut to run the command by opening up "Preferences → Key Bindings - User" and adding your shortcut with the `autoprefixer` command.
+You can also set up a keyboard shortcut to run the command by opening up "Settings → Key Bindings - User" and adding your shortcut with the `autoprefixer` command.
 
 Example:
 
