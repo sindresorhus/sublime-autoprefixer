@@ -11,6 +11,7 @@ let list = {
   },
 
   split(string, separators, last) {
+    if (typeof string !== 'string') return []
     let array = []
     let current = ''
     let split = false
@@ -41,7 +42,8 @@ let list = {
       }
 
       if (split) {
-        if (current !== '') array.push(current.trim())
+        let value = current.trim()
+        if (last || value !== '') array.push(value)
         current = ''
         split = false
       } else {
@@ -49,7 +51,8 @@ let list = {
       }
     }
 
-    if (last || current !== '') array.push(current.trim())
+    let value = current.trim()
+    if (last || value !== '') array.push(value)
     return array
   }
 }
