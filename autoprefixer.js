@@ -43,4 +43,5 @@ try {
 	}
 
 	console.error(error.message.replace('<css input>:', ''));
+	process.exitCode = 1;
 }

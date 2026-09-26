@@ -25,7 +25,9 @@ def node_bridge(data, bin, args=[]):
 	stdout, stderr = p.communicate(input=data.encode('utf-8'))
 	stdout = stdout.decode('utf-8')
 	stderr = stderr.decode('utf-8')
-	if stderr:
+	if p.returncode != 0:
 		raise Exception('Error: %s' % stderr)
-	else:
-		return stdout
+	# Node.js can print warnings to stderr even when it succeeds, so we only log them to the console
+	if stderr:
+		print(stderr)
+	return stdout
